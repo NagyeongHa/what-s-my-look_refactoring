@@ -1,9 +1,9 @@
 import '../styles/Look.css';
 import Like from './Like';
-import { weatherStateContext } from '../routes/Home';
 import { useContext, useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { getImageApi } from '../recoil/apiCallSelector';
+import { weatherStateContext } from '../Context/weatherContext';
 
 function Look() {
   const lookList = ['casual', 'modern', 'street', 'romantic'];

@@ -2,35 +2,38 @@ import Carousel from '../components/Carousel';
 import '../styles/global.css';
 import NavBar from '../components/NavBar';
 import Look from '../components/Look';
-import { useState, useEffect, createContext } from 'react';
-
-export const weatherStateContext = createContext(null);
+import { useState, useEffect } from 'react';
+import { IweatherValues } from '../types/IweatherValues';
+import { weatherStateContext } from '../Context/weatherContext';
 
 function Home() {
-  const [weather, setWeather] = useState({
+  const [weather, setWeather] = useState<IweatherValues>({
     city: '',
     temp: '',
   });
 
   useEffect(() => {
-    const getWeather = async (position) => {
+    const getWeather = (position: any) => {
       const API_KEY = `6e3fd9c6824107fd354f165491f18092`;
 
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
+      const lat: number = position.coords.latitude;
+      const lon: number = position.coords.longitude;
 
-      const json = await (
-        await fetch(
+      const weatherApiCall = async () => {
+        const response = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
-        )
-      ).json();
+        );
 
-      console.log('hello world');
+        return response.json();
+      };
 
-      setWeather({
-        city: json.name,
-        temp: json.main.temp,
-      });
+      weatherApiCall().then((weatherValue) =>
+        setWeather({
+          ...weather,
+          city: weatherValue.name,
+          temp: weatherValue.main.temp,
+        })
+      );
     };
 
     const getCurrentWeather = () => {
@@ -42,7 +45,7 @@ function Home() {
     };
 
     getCurrentWeather();
-  }, []);
+  }, [weather]);
 
   return (
     <>
