@@ -39,7 +39,7 @@ function NavBar() {
   }, []);
 
   const logout = () => {
-    signOut(auth).then(alert('logout!'));
+    signOut(auth).then(() => alert('logout!'));
     localStorage.removeItem('recoil-persist');
 
     handleModal((prev) => !prev);
