@@ -3,8 +3,6 @@ import React, { useContext } from 'react';
 import { weatherStateContext } from '../Context/weatherContext';
 
 function WeatherInfo() {
-  //useContext로 데이터 받아오기(temp, city)
-
   const weather = useContext(weatherStateContext);
 
   const scrollTo = () => {
