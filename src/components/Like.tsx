@@ -6,6 +6,7 @@ import { update, ref, onValue, push, child, remove } from 'firebase/database';
 import { useRecoilValue } from 'recoil';
 import { authState } from '../recoil/authState';
 import { database } from './firebase';
+import _ from 'lodash';
 
 function Like({ images }) {
   const [isLike, setisLike] = useState(false);

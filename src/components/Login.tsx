@@ -23,7 +23,7 @@ function Login() {
       setAuthUser(user);
 
       if (authedUser) {
-        navigate('https://what-s-my-look.web.app/');
+        navigate('/');
       }
     });
   };
