@@ -22,7 +22,7 @@ function Liked() {
   useEffect(() => {
     //파이어베이스 유저정보 저장
     const saveUserFirebase = (item) => {
-      const imageIndex = item.id - 1;
+      const imageIndex : = item.id - 1;
       const getCountReference = ref(database, `database/look/${imageIndex}`);
 
       //likes안에 저장될 고유키 생성

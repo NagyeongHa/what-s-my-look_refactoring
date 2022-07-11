@@ -17,7 +17,7 @@ function Look() {
 
   useEffect(() => {
     const weatherLevel = {
-      highTemp: temp >= 24,
+      highTemp: temp >= 28,
       summer: temp >= 23 && temp < 28,
       spring: temp >= 20 && temp <= 22,
       middleTemp: temp >= 17 && temp <= 19,
