@@ -49,14 +49,13 @@ function Look() {
     }
   }, [temp]);
 
-  console.log(temp.temp);
   const defaultArray = Object.values(images).filter(
     (item) => item.temperature === nowTemp
   );
 
   const onClick = (e) => {
     const buttonName = e.target.textContent;
-    const result = Object.values(images).filter(
+    const result: Array<T> = Object.values(images).filter(
       (image) => image.look === buttonName && image.temperature === nowTemp
     );
     setImgArray(result);

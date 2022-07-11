@@ -28,7 +28,7 @@ function Liked() {
       //likes안에 저장될 고유키 생성
       const newLikeKey = push(child(ref(database), `likes`)).key;
 
-      //저장할 값 ( 이메일 , 고유키)
+      //저장할 값 ( 이메일 , 고유키)7hg
       const likeData = {
         user: authUser.email,
         uuid: newLikeKey,
