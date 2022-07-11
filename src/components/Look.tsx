@@ -4,6 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { getImageApi } from '../recoil/apiCallSelector';
 import { weatherStateContext } from '../Context/weatherContext';
+import { IimageItemProperty } from '../types/IimageItemProperty';
 
 function Look() {
   const lookList = ['casual', 'modern', 'street', 'romantic'];
@@ -11,53 +12,76 @@ function Look() {
   const weather = useContext(weatherStateContext);
   const temp = weather.temp;
   const [nowTemp, setNowTemp] = useState(0);
-  const [imgArray, setImgArray] = useState([]);
+  const [imgArray, setImgArray] = useState<IimageItemProperty[]>([]);
   const [isClick, setIsClick] = useState(false);
 
   useEffect(() => {
-    if (temp >= 24) {
+    const weatherLevel = {
+      highTemp: temp >= 24,
+      summer: temp >= 23 && temp < 28,
+      spring: temp >= 20 && temp <= 22,
+      middleTemp: temp >= 17 && temp <= 19,
+      autumn: temp >= 12 && temp <= 16,
+      iffy: temp >= 9 && temp <= 11,
+      winter: temp >= 5 && temp <= 8,
+      lowTemp: temp <= 4,
+    };
+
+    const {
+      highTemp,
+      summer,
+      spring,
+      middleTemp,
+      autumn,
+      iffy,
+      winter,
+      lowTemp,
+    } = weatherLevel;
+
+    if (highTemp) {
       setNowTemp(27);
       return;
     }
-    if (temp >= 23 && temp < 28) {
+    if (summer) {
       setNowTemp(23);
       return;
     }
-    if (temp >= 20 && temp <= 22) {
+    if (spring) {
       setNowTemp(20);
       return;
     }
-    if (temp >= 17 && temp <= 19) {
+    if (middleTemp) {
       setNowTemp(17);
       return;
     }
-    if (temp >= 12 && temp <= 16) {
+    if (autumn) {
       setNowTemp(12);
       return;
     }
-    if (temp >= 9 && temp <= 11) {
+    if (iffy) {
       setNowTemp(9);
       return;
     }
-    if (temp >= 5 && temp <= 8) {
+    if (winter) {
       setNowTemp(5);
       return;
     }
-    if (temp <= 4) {
+    if (lowTemp) {
       setNowTemp(4);
       return;
     }
   }, [temp]);
 
-  const defaultArray = Object.values(images).filter(
-    (item) => item.temperature === nowTemp
+  const defaultArray = Object.values(images as object).filter(
+    (image) => image.temperature === nowTemp
   );
 
-  const onClick = (e) => {
-    const buttonName = e.target.textContent;
-    const result: Array<T> = Object.values(images).filter(
+  const lookButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const buttonName = (e.target as HTMLButtonElement).textContent;
+    const result = Object.values(images as object).filter(
       (image) => image.look === buttonName && image.temperature === nowTemp
     );
+
     setImgArray(result);
     setIsClick(true);
   };
@@ -70,7 +94,7 @@ function Look() {
             <button
               key={idx}
               id={idx}
-              onClick={onClick}
+              onClick={lookButtonClick}
               className='filter-button'
             >
               {item}
