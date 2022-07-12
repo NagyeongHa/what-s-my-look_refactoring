@@ -9,15 +9,15 @@ import { weatherStateContext } from '../Context/weatherContext';
 function Home() {
   const [weather, setWeather] = useState<IweatherValues>({
     city: '',
-    temp: '',
+    temp: 0,
   });
 
   useEffect(() => {
     const getWeather = (position: any) => {
-      const API_KEY = `6e3fd9c6824107fd354f165491f18092`;
+      const API_KEY = `e123d48bb001a8c0ad07e24fc9cc04bb`;
 
-      const lat: number = position.coords.latitude;
-      const lon: number = position.coords.longitude;
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
 
       const weatherApiCall = async () => {
         const response = await fetch(
