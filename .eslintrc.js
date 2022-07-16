@@ -1,25 +1,25 @@
 module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: [
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
+  ],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2021,
-    sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
     },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
-  env: {
-    browser: true,
-    node: true,
-    es6: true,
-  },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-  ],
-  plugins: ['import', 'react', 'react-hooks'],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
     'react/jsx-uses-react': 'off',
-    'react/react-in-jsx-scope': 'off',
+    'react/react-in-jsx-scope': 0,
     'react/prop-types': 0,
   },
 };

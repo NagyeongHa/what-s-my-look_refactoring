@@ -33,7 +33,7 @@ function Liked(): JSX.Element {
       uuid: newLikeKey,
     };
 
-    let updates: any = {};
+    const updates: any = {};
     const updateReference = `/database/look/${imageIndex}/likes/` + newLikeKey;
     updates[updateReference] = likeData;
     update(ref(database), updates);
