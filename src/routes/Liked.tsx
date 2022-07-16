@@ -13,7 +13,7 @@ import { database } from '../components/firebase';
 import _ from 'lodash';
 import { IimageDataProperty } from '../types/IimageDataProperty';
 
-function Liked() {
+function Liked(): JSX.Element {
   const getLikedImagesState = useRecoilValue(likedImagesState);
   const likedImages: IimageDataProperty[] = JSON.parse(
     getLikedImagesState || '[]'
@@ -71,7 +71,6 @@ function Liked() {
       );
       //로컬로 옮기고 비로그인 세션 삭제
       sessionStorage.removeItem('nonLoginLikedImages');
-      return;
     }
 
     //비로그인 좋아요 O & 로그인 좋아요 O
