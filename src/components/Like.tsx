@@ -7,8 +7,9 @@ import { useRecoilValue } from 'recoil';
 import { authState } from '../recoil/authState';
 import { database } from './firebase';
 import _ from 'lodash';
+import { IimageProps } from '../types/IimageProps';
 
-function Like({ images }) {
+function Like({ images }: IimageProps) {
   const [isLike, setisLike] = useState(false);
   const [lookDatabase, setLookDatabase] = useState({});
   const [unAuthedUser, setUnAuthedUser] = useState(false);
@@ -44,6 +45,7 @@ function Like({ images }) {
       if (snapshot.exists()) {
         const user = Object.values(snapshot.val()); //유저이메일
         //로그인했을 때 이미지별 좋아요 눌린 유저중에 로그인 유저랑 같은 사람이 있는지
+        console.log(typeof user);
         if (authUser) {
           if (user.find((item) => item.user === authUser.email)) {
             setisLike(true);

@@ -13,7 +13,7 @@ function Home() {
   });
 
   useEffect(() => {
-    const getWeather = (position: any) => {
+    const getWeather = (position: unknown) => {
       const API_KEY = `e123d48bb001a8c0ad07e24fc9cc04bb`;
 
       const lat = position.coords.latitude;
@@ -29,7 +29,6 @@ function Home() {
 
       weatherApiCall().then((weatherValue) =>
         setWeather({
-          ...weather,
           city: weatherValue.name,
           temp: weatherValue.main.temp,
         })
@@ -45,7 +44,7 @@ function Home() {
     };
 
     getCurrentWeather();
-  }, [weather]);
+  }, []);
 
   return (
     <>

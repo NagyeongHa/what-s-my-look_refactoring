@@ -32,7 +32,7 @@ function Liked() {
       uuid: newLikeKey,
     };
 
-    let updates: any = {};
+    const updates: any = {};
     const updateReference = `/database/look/${imageIndex}/likes/` + newLikeKey;
     updates[updateReference] = likeData;
     update(ref(database), updates);
@@ -75,7 +75,7 @@ function Liked() {
 
     //비로그인 좋아요 O & 로그인 좋아요 O
     if (likedImages) {
-      let addNewLike = Object.keys(unAuthedLikeImage).map((key) => {
+      const addNewLike = Object.keys(unAuthedLikeImage).map((key) => {
         likedImages.concat(unAuthedLikeImage[key]);
       });
 
@@ -96,7 +96,7 @@ function Liked() {
       <NavBar />
       <div className='card likedPage'>
         {likedImages ? (
-          Object.values(likedImages as object).map((item, idx) => (
+          Object.values(likedImages).map((item, idx) => (
             <div key={idx}>
               <img src={item.src} key={item.id} className='image' />
               <div className='icon-wrapper'>
