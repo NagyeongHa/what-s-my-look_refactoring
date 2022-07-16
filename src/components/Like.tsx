@@ -7,14 +7,19 @@ import { useRecoilValue } from 'recoil';
 import { authState } from '../recoil/authState';
 import { database } from './firebase';
 import _ from 'lodash';
+import { IimageDataProperty } from '../types/IimageDataProperty';
+import { IUserInfo } from '../types/IUserInfo';
 
-function Like({ images }) {
+function Like({ images }: { images: IimageDataProperty }) {
   const [isLike, setisLike] = useState(false);
-  const [lookDatabase, setLookDatabase] = useState({});
+  const [lookDatabase, setLookDatabase] = useState<IimageDataProperty>();
   const [unAuthedUser, setUnAuthedUser] = useState(false);
 
+  const authUser: IUserInfo = useRecoilValue(authState);
   const imageIndex = images.id - 1;
-  const authUser = useRecoilValue(authState);
+  const getLikedImages: IimageDataProperty[] = JSON.parse(
+    localStorage.getItem('likedImages') || '[]'
+  );
   const getLikesUserReference = ref(
     database,
     `database/look/${imageIndex}/likes`
@@ -42,7 +47,7 @@ function Like({ images }) {
   useEffect(() => {
     onValue(getLikesUserReference, (snapshot) => {
       if (snapshot.exists()) {
-        const user = Object.values(snapshot.val()); //유저이메일
+        const user: IimageDataProperty[] = Object.values(snapshot.val()); //유저이메일
         //로그인했을 때 이미지별 좋아요 눌린 유저중에 로그인 유저랑 같은 사람이 있는지
         if (authUser) {
           if (user.find((item) => item.user === authUser.email)) {
@@ -86,13 +91,13 @@ function Like({ images }) {
       };
 
       //유저 저장
-      const updates = {};
+      const updates: any = {};
       updates[`/database/look/${imageIndex}/likes/` + newLikeKey] = likeData;
       update(ref(database), updates);
 
       //카운트+1
       update(getCountReference, {
-        count: lookDatabase.count + 1,
+        count: (lookDatabase as IimageDataProperty).count + 1,
       });
     }
 
@@ -112,8 +117,8 @@ function Like({ images }) {
   const downLike = () => {
     setisLike(false);
 
-    if (authUser && lookDatabase.likes) {
-      const toArray = Object.values(lookDatabase.likes);
+    if (authUser && (lookDatabase as IimageDataProperty).likes) {
+      const toArray = Object.values((lookDatabase as IimageDataProperty).likes);
       const userFilter = toArray.filter((item) => item.user === authUser.email);
       const likesUuid = userFilter[0].uuid;
 
@@ -126,17 +131,17 @@ function Like({ images }) {
 
       //카운트-1
       update(getCountReference, {
-        count: lookDatabase.count - 1,
+        count: (lookDatabase as IimageDataProperty).count - 1,
       });
     }
 
     //비로그인
     if (unAuthedUser) {
-      const getLikedImages = JSON.parse(
-        sessionStorage.getItem('nonLoginLikedImages')
+      const getLikedImages: IimageDataProperty[] = JSON.parse(
+        sessionStorage.getItem('nonLoginLikedImages') || '[]'
       );
       const deleteLikedImages = getLikedImages.filter(
-        (item) => item.id !== images.id
+        (item: IimageDataProperty) => item.id !== images.id
       );
 
       sessionStorage.setItem(
@@ -149,23 +154,18 @@ function Like({ images }) {
   //선택된 이미지 로컬에 추가로컬에 추가
   const addLikedImages = () => {
     if (authUser) {
-      const prevLikedImages = JSON.parse(
-        localStorage.getItem('likedImages') || '[]'
-      );
-
       localStorage.setItem(
         'likedImages',
-        JSON.stringify(_.uniqBy([...prevLikedImages, images], 'id'))
+        JSON.stringify(_.uniqBy([...getLikedImages, images], 'id'))
       );
     }
   };
   //선택된 이미지 로컬에 제거
   const deletelikedImages = () => {
     if (authUser) {
-      const getLikedImages = JSON.parse(localStorage.getItem('likedImages'));
       if (getLikedImages) {
         const deleteLikedImages = getLikedImages.filter(
-          (item) => item.id !== images.id
+          (item: IimageDataProperty) => item.id !== images.id
         );
 
         localStorage.setItem('likedImages', JSON.stringify(deleteLikedImages));
@@ -179,7 +179,7 @@ function Like({ images }) {
         <button onClick={toggleLike}>
           <img src={isLike ? like : unLike} alt='' className='icon like' />
         </button>
-        {authUser ? lookDatabase.count : ''}
+        {authUser ? (lookDatabase as IimageDataProperty).count : ''}
       </div>
     </>
   );
