@@ -62,8 +62,11 @@ function Like({ images }: IimageProps) {
   //좋아요 클릭 시
   const toggleLike = () => {
     if (!authUser) {
-      alert('로그인 시 위시리스트에서 좋아요한 이미지를 확인하실 수 있습니다.');
-      // return;
+      if (!isLike) {
+        alert(
+          '로그인 시 위시리스트에서 좋아요한 이미지를 확인하실 수 있습니다.'
+        );
+      }
     }
 
     if (isLike) {

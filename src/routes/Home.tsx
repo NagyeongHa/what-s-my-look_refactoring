@@ -5,6 +5,7 @@ import Look from '../components/Look';
 import { useState, useEffect } from 'react';
 import { IweatherValues } from '../types/IweatherValues';
 import { weatherStateContext } from '../Context/weatherContext';
+import { IweatherPositionValues } from '../types/IweatherPositionValues';
 
 function Home() {
   const [weather, setWeather] = useState<IweatherValues>({
@@ -13,7 +14,7 @@ function Home() {
   });
 
   useEffect(() => {
-    const getWeather = (position: unknown) => {
+    const getWeather = (position: IweatherPositionValues) => {
       const API_KEY = `e123d48bb001a8c0ad07e24fc9cc04bb`;
 
       const lat = position.coords.latitude;
