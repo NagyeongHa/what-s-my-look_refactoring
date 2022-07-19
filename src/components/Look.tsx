@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { getImageApi } from '../recoil/apiCallSelector';
 import { weatherStateContext } from '../Context/weatherContext';
 import { IimageItemProperty } from '../types/IimageItemProperty';
+import { IimageDataProperty } from '../types/IimageDataProperty';
 
 function Look() {
   const lookList = ['casual', 'modern', 'street', 'romantic'];
@@ -12,7 +13,7 @@ function Look() {
   const weather = useContext(weatherStateContext);
   const temp = weather.temp;
   const [nowTemp, setNowTemp] = useState(0);
-  const [imgArray, setImgArray] = useState<IimageItemProperty[]>([]);
+  const [imgArray, setImgArray] = useState<IimageDataProperty[]>([]);
   const [isClick, setIsClick] = useState(false);
 
   useEffect(() => {

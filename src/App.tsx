@@ -2,8 +2,8 @@ import { RecoilRoot } from 'recoil';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Suspense } from 'react';
 import Home from './routes/Home';
-import Liked from './routes/Liked';
 import Loading from './components/Loading';
+import Liked from './routes/Liked';
 
 function App() {
   return (
