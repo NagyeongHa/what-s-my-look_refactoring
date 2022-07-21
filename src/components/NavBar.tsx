@@ -51,7 +51,7 @@ function NavBar() {
 
   const liked = () => {
     // window.location.href = 'https://what-s-my-look.web.app/liked';
-    window.location.href = 'http://localhost:3000/';
+    window.location.href = 'http://localhost:3000/liked';
   };
 
   const modalHandler = () => {
@@ -59,8 +59,9 @@ function NavBar() {
   };
 
   const isUserAuthed = () => {
-    if (!authedUser) {
+    if (Object.keys(authedUser).length === 0) {
       alert('로그인 후 이용해주세요.');
+      return;
     }
   };
 
@@ -78,7 +79,7 @@ function NavBar() {
             <span onClick={logout}>Logout</span>
           ) : (
             <>
-              {authedUser ? (
+              {Object.values(authedUser).length > 0 ? (
                 <>
                   <button onClick={logout}>Logout</button>
                   <button onClick={liked}>Liked</button>

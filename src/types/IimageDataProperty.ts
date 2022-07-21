@@ -1,5 +1,3 @@
-import { partial } from 'lodash';
-
 export interface IimageDataProperty {
   count: number;
   id: number;

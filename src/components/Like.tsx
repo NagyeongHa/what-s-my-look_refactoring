@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { authState } from '../recoil/authState';
 import { database } from './firebase';
 import _ from 'lodash';
-import { IUserInfo } from '../types/IUserInfo';
+// import { IUserInfo } from '../types/IUserInfo';
 import { IimageDataProperty } from '../types/IimageDataProperty';
 import { IimageProps } from '../types/IimageProps';
 
@@ -16,7 +16,7 @@ function Like({ images }: IimageProps) {
   const [lookDatabase, setLookDatabase] = useState<IimageDataProperty>();
   const [unAuthedUser, setUnAuthedUser] = useState(false);
 
-  const authUser: IUserInfo = useRecoilValue(authState);
+  const authUser = useRecoilValue(authState);
   const imageIndex = images.id - 1;
   const getLikedImages: IimageDataProperty[] = JSON.parse(
     localStorage.getItem('likedImages') || '[]'
@@ -103,6 +103,7 @@ function Like({ images }: IimageProps) {
       update(getCountReference, {
         count: (lookDatabase as IimageDataProperty).count + 1,
       });
+      return;
     }
 
     //비로그인
@@ -155,7 +156,7 @@ function Like({ images }: IimageProps) {
     }
   };
 
-  //선택된 이미지 로컬에 추가로컬에 추가
+  //선택된 이미지 로컬에 추가
   const addLikedImages = () => {
     if (authUser) {
       localStorage.setItem(
@@ -164,6 +165,7 @@ function Like({ images }: IimageProps) {
       );
     }
   };
+
   //선택된 이미지 로컬에 제거
   const deletelikedImages = () => {
     if (authUser) {
@@ -183,7 +185,7 @@ function Like({ images }: IimageProps) {
         <button onClick={toggleLike}>
           <img src={isLike ? like : unLike} alt='' className='icon like' />
         </button>
-        {authUser ? (lookDatabase as IimageDataProperty).count : ''}
+        {Object.values(authUser).length > 0 ? lookDatabase?.count : ''}
       </div>
     </>
   );
