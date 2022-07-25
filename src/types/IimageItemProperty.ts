@@ -1,4 +1,4 @@
-export interface  IimageItemProperty {
-  src: string;
-  id: number;
+export interface IimageItemProperty {
+  src?: string;
+  id?: number;
 }

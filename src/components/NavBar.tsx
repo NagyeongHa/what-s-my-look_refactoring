@@ -59,7 +59,7 @@ function NavBar() {
   };
 
   const isUserAuthed = () => {
-    if (Object.keys(authedUser).length === 0) {
+    if (!authedUser) {
       alert('로그인 후 이용해주세요.');
       return;
     }
@@ -79,7 +79,7 @@ function NavBar() {
             <span onClick={logout}>Logout</span>
           ) : (
             <>
-              {Object.values(authedUser).length > 0 ? (
+              {authedUser ? (
                 <>
                   <button onClick={logout}>Logout</button>
                   <button onClick={liked}>Liked</button>

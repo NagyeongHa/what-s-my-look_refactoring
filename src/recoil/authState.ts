@@ -5,7 +5,7 @@ const { persistAtom } = recoilPersist();
 
 export const authState = atom({
   key: 'authState',
-  default: {},
+  default: null,
   effects_UNSTABLE: [persistAtom],
   dangerouslyAllowMutability: true,
 });
