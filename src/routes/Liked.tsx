@@ -27,7 +27,7 @@ function Liked(): JSX.Element {
   useEffect(() => {
     //파이어베이스 저장
     const saveUserFirebase = (images: IimageDataProperty) => {
-      const imageIndex = (images.id as number) - 1;
+      const imageIndex = images.id - 1;
       const getCountReference = ref(database, `database/look/${imageIndex}`);
       const newLikeKey = push(child(ref(database), 'likes')).key;
       const getLikesReference = ref(
@@ -43,13 +43,13 @@ function Liked(): JSX.Element {
 
       //카운트+1
       update(getCountReference, {
-        count: (images.count as number) + 1,
+        count: images.count + 1,
       });
     };
 
     //파이어베이스 저장 시 유저 중복 체크
     const duplicateCheckUser = (images: IimageDataProperty) => {
-      const imageIndex = (images.id as number) - 1;
+      const imageIndex = images.id - 1;
 
       onValue(
         ref(database, `database/look/${imageIndex}/likes`),
@@ -81,13 +81,14 @@ function Liked(): JSX.Element {
           JSON.stringify(_.uniqBy(unAuthedLikeImage, 'id'))
         );
 
+        //로컬로 옮기고 비로그인 세션 삭제
+        sessionStorage.removeItem('nonLoginLikedImages');
+
         //파이어베이스 저장
         unAuthedLikeImage.map((images: IimageDataProperty) =>
           duplicateCheckUser(images)
         );
 
-        //로컬로 옮기고 비로그인 세션 삭제
-        sessionStorage.removeItem('nonLoginLikedImages');
         return;
       }
 

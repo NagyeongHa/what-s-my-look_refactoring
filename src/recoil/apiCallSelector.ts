@@ -1,4 +1,4 @@
-import { atom, RecoilValue, selector } from 'recoil';
+import { atom, selector } from 'recoil';
 
 //파이어베이스에서 이미지 가져오기
 export const getImageApi = selector({
