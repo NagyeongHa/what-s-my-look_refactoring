@@ -1,76 +1,26 @@
 import { useRecoilValue } from 'recoil';
-import {
-  likedImagesState,
-  nonLoginLikedImagesState,
-} from '../recoil/apiCallSelector';
 import '../styles/Look.css';
 import NavBar from '../components/NavBar';
 import Like from '../components/Like';
 import { authState } from '../recoil/authState';
-import { update, ref, push, child, onValue } from 'firebase/database';
-import { database } from '../components/firebase';
 import _ from 'lodash';
 import { IimageDataProperty } from '../types/IimageDataProperty';
 import { useEffect } from 'react';
+import { saveUserFirebase } from '../components/saveFirebase';
+import { useLocation } from 'react-router-dom';
 
 function Liked(): JSX.Element {
-  const getLikedImagesState = useRecoilValue(likedImagesState);
+  const getLikedImagesState = localStorage.getItem('likedImages');
   const likedImages: IimageDataProperty[] = JSON.parse(
     getLikedImagesState || '[]'
   ); //로그인 좋아요
 
-  const getUnAuthedLikeImage = useRecoilValue(nonLoginLikedImagesState);
+  const getUnAuthedLikeImage = sessionStorage.getItem('nonLoginLikedImages');
   const unAuthedLikeImage = JSON.parse(getUnAuthedLikeImage || '[]'); //비로그인 좋아요
-
   const authUser = useRecoilValue(authState);
+  const location = useLocation();
 
   useEffect(() => {
-    //파이어베이스 저장
-    const saveUserFirebase = (images: IimageDataProperty) => {
-      const imageIndex = images.id - 1;
-      const getCountReference = ref(database, `database/look/${imageIndex}`);
-      const newLikeKey = push(child(ref(database), 'likes')).key;
-      const getLikesReference = ref(
-        database,
-        `database/look/${imageIndex}/likes/${newLikeKey}`
-      );
-
-      //유저저장
-      update(getLikesReference, {
-        user: authUser.email,
-        uuid: newLikeKey,
-      });
-
-      //카운트+1
-      update(getCountReference, {
-        count: images.count + 1,
-      });
-    };
-
-    //파이어베이스 저장 시 유저 중복 체크
-    const duplicateCheckUser = (images: IimageDataProperty) => {
-      const imageIndex = images.id - 1;
-
-      onValue(
-        ref(database, `database/look/${imageIndex}/likes`),
-        (snapshot) => {
-          //likes배열 존재한다면
-          if (snapshot.exists()) {
-            const user: IimageDataProperty[] = Object.values(snapshot.val());
-
-            //좋아요 누른 사람 중에 로그인한 유저의 이메일이 있다면
-            if (user.map((item) => item.user === authUser.email)) {
-              console.log('already exists...');
-              return;
-            }
-          }
-          //likes 배열 없거나 , 이메일 중복 아니라면 파이어베이스에 저장
-          saveUserFirebase(images);
-          return;
-        }
-      );
-    };
-
     //비로그인 좋아요
     if (unAuthedLikeImage.length > 0 && authUser) {
       //비로그인 좋아요 사진 O & 로그인 좋아요 사진 X
@@ -81,14 +31,13 @@ function Liked(): JSX.Element {
           JSON.stringify(_.uniqBy(unAuthedLikeImage, 'id'))
         );
 
-        //로컬로 옮기고 비로그인 세션 삭제
-        sessionStorage.removeItem('nonLoginLikedImages');
-
         //파이어베이스 저장
         unAuthedLikeImage.map((images: IimageDataProperty) =>
-          duplicateCheckUser(images)
+          saveUserFirebase(images, authUser.email)
         );
 
+        //로컬로 옮기고 비로그인 세션 삭제
+        sessionStorage.removeItem('nonLoginLikedImages');
         return;
       }
 
@@ -115,20 +64,20 @@ function Liked(): JSX.Element {
 
         //파이어베이스 저장
         mergeLikeImagesNumberKey.map((key) =>
-          duplicateCheckUser(mergeLikedImages[key])
+          saveUserFirebase(mergeLikedImages[key], authUser.email)
         );
 
         //로컬로 옮기고 비로그인 세션 삭제
         sessionStorage.removeItem('nonLoginLikedImages');
       }
     }
-  }, [authUser, likedImages, unAuthedLikeImage]);
+  }, [authUser, likedImages, unAuthedLikeImage, , location]);
 
   return (
     <>
       <NavBar />
       <div className='card likedPage'>
-        {likedImages ? (
+        {likedImages.length > 0 ? (
           Object.values(likedImages).map((item, idx) => (
             <div key={idx}>
               <img src={item.src} key={item.id} className='image' />

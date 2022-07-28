@@ -113,16 +113,21 @@ function Like({ images }: IimageProps) {
         `database/look/${imageIndex}/likes/${newLikeKey}`
       );
 
-      //유저저장
+      // //유저저장
       update(getLikesReference, {
         user: authUser.email,
         uuid: newLikeKey,
       });
 
-      //카운트+1
+      // //카운트+1
       update(getCountReference, {
         count: (lookDatabase as IimageDataProperty).count + 1,
       });
+
+      //  saveUserFirebase(
+      //   lookDatabase as IimageDataProperty,
+      //   authUser.email
+      // );
     }
   };
 

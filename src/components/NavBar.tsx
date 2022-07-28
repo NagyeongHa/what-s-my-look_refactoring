@@ -7,7 +7,7 @@ import ModalPortal from './ModalPortal';
 import Modal from './Modal';
 import '../styles/Modal.css';
 import { modalState } from '../recoil/modalState';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
 
@@ -16,6 +16,8 @@ function NavBar() {
   const [isModalOn, setIsModalOn] = useRecoilState(modalState);
   const authedUser = useRecoilValue(authState);
   const handleModal = useSetRecoilState(modalState);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleNav = () => {
     if (window.scrollY > 500) {
@@ -24,19 +26,20 @@ function NavBar() {
       setIsNavOn(false);
     }
   };
+  console.log(location.pathname);
 
   useEffect(() => {
-    if (window.location.pathname === '/liked') {
+    if (location.pathname === '/liked') {
       setIsNavOn(true);
     }
 
-    if (window.location.pathname === '/') {
+    if (location.pathname === '/') {
       window.addEventListener('scroll', handleNav);
       return () => {
         window.removeEventListener('scroll', handleNav);
       };
     }
-  }, []);
+  }, [location.pathname]);
 
   const logout = () => {
     signOut(auth).then(() => alert('logout!'));
@@ -51,7 +54,7 @@ function NavBar() {
 
   const liked = () => {
     // window.location.href = 'https://what-s-my-look.web.app/liked';
-    window.location.href = 'http://localhost:3000/liked';
+    navigate('/liked');
   };
 
   const modalHandler = () => {
