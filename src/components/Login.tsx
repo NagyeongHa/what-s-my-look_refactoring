@@ -6,7 +6,7 @@ import '../styles/Modal.css';
 import { auth } from './firebase';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
+const Login = () => {
   const [authedUser, setAuthUser] = useRecoilState(authState);
   const navigate = useNavigate();
 
@@ -35,6 +35,6 @@ function Login() {
       </button>
     </div>
   );
-}
+};
 
 export default Login;

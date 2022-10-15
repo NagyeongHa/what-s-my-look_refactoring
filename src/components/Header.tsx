@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import '../styles/NavBar.css';
+import '../styles/Header.css';
 import logo from '../assets/icon/logo.svg';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { authState } from '../recoil/authState';
@@ -11,7 +11,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
 
-function NavBar() {
+const Header = () => {
   const [isNavOn, setIsNavOn] = useState(false);
   const [isModalOn, setIsModalOn] = useRecoilState(modalState);
   const authedUser = useRecoilValue(authState);
@@ -100,6 +100,6 @@ function NavBar() {
       </div>
     </header>
   );
-}
+};
 
-export default NavBar;
+export default Header;

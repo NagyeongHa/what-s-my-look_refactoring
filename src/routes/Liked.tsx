@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import '../styles/Look.css';
-import NavBar from '../components/NavBar';
+import Header from '../components/Header';
 import Like from '../components/Like';
 import { authState } from '../recoil/authState';
 import _ from 'lodash';
@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { saveUserFirebase } from '../components/saveFirebase';
 import { useLocation } from 'react-router-dom';
 
-function Liked(): JSX.Element {
+const Liked = () => {
   const getLikedImagesState = localStorage.getItem('likedImages');
   const likedImages: IimageDataProperty[] = JSON.parse(
     getLikedImagesState || '[]'
@@ -75,7 +75,7 @@ function Liked(): JSX.Element {
 
   return (
     <>
-      <NavBar />
+      <Header />
       <div className='card likedPage'>
         {likedImages.length > 0 ? (
           Object.values(likedImages).map((item, idx) => (
@@ -92,6 +92,6 @@ function Liked(): JSX.Element {
       </div>
     </>
   );
-}
+};
 
 export default Liked;

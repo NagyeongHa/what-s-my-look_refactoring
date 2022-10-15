@@ -1,6 +1,6 @@
 import '../styles/Loading.css';
 
-function Loading() {
+const Loading = () => {
   return (
     <>
       <div className='progress-title'>Please waiting...</div>
@@ -12,6 +12,6 @@ function Loading() {
       </div>
     </>
   );
-}
+};
 
 export default Loading;

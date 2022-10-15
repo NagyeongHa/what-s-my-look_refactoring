@@ -5,7 +5,7 @@ import Home from './routes/Home';
 import Loading from './components/Loading';
 import Liked from './routes/Liked';
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <RecoilRoot>
@@ -18,6 +18,6 @@ function App() {
       </RecoilRoot>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

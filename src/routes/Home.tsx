@@ -1,13 +1,13 @@
 import Carousel from '../components/Carousel';
 import '../styles/global.css';
-import NavBar from '../components/NavBar';
+import Header from '../components/Header';
 import Look from '../components/Look';
 import { useState, useEffect } from 'react';
 import { IweatherValues } from '../types/IweatherValues';
 import { weatherStateContext } from '../Context/weatherContext';
 import { IweatherPositionValues } from '../types/IweatherPositionValues';
 
-function Home() {
+const Home = () => {
   const [weather, setWeather] = useState<IweatherValues>({
     city: '',
     temp: 0,
@@ -50,11 +50,11 @@ function Home() {
   return (
     <>
       <weatherStateContext.Provider value={weather}>
-        <NavBar />
+        <Header />
         <Carousel />
         <Look />
       </weatherStateContext.Provider>
     </>
   );
-}
+};
 export default Home;

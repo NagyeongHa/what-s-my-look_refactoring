@@ -6,7 +6,7 @@ import { getImageApi } from '../recoil/apiCallSelector';
 import { weatherStateContext } from '../Context/weatherContext';
 import { IimageDataProperty } from '../types/IimageDataProperty';
 
-function Look() {
+const Look = () => {
   const lookList = ['casual', 'modern', 'street', 'romantic'];
   const images = useRecoilValue(getImageApi);
   const weather = useContext(weatherStateContext);
@@ -123,6 +123,6 @@ function Look() {
       </section>
     </>
   );
-}
+};
 
 export default Look;

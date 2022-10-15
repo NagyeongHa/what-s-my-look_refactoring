@@ -10,7 +10,7 @@ import _ from 'lodash';
 import { IimageDataProperty } from '../types/IimageDataProperty';
 import { IimageProps } from '../types/IimageProps';
 
-function Like({ images }: IimageProps) {
+const Like = ({ images }: IimageProps) => {
   const [isLike, setIsLike] = useState(false);
   const [lookDatabase, setLookDatabase] = useState({});
   const [unAuthedUser, setUnAuthedUser] = useState(false);
@@ -36,7 +36,6 @@ function Like({ images }: IimageProps) {
     res();
   }, [imageIndex, isLike]);
 
-  //페이지 로딩 시 유저가 좋아요 했으면 빨간 하트
   useEffect(() => {
     //비로그인
     const sessionData: IimageDataProperty[] = JSON.parse(
@@ -59,12 +58,10 @@ function Like({ images }: IimageProps) {
     //로그인
     if (authUser) {
       if ((lookDatabase as IimageDataProperty).likes) {
-        //이미지별 좋아요한 유저목록
         const userLiked = Object.values(
           (lookDatabase as IimageDataProperty).likes
         );
 
-        //로그인 시 로그인 유저랑 같은 사람이 있는지
         if (userLiked.find((item) => item.user === authUser.email)) {
           setIsLike(true);
           return;
@@ -75,9 +72,7 @@ function Like({ images }: IimageProps) {
     }
   }, [authUser, images.id, lookDatabase]);
 
-  //좋아요 클릭 시
   const toggleLike = () => {
-    //비로그인
     if (unAuthedUser) {
       setIsLike(!isLike);
       if (!isLike) {
@@ -100,34 +95,24 @@ function Like({ images }: IimageProps) {
     }
   };
 
-  //좋아요
   const upLike = () => {
     setIsLike(true);
 
-    //로그인
     if (authUser) {
-      //likes안에 저장될 고유키 생성
       const newLikeKey = push(child(ref(database), `likes`)).key;
       const getLikesReference = ref(
         database,
         `database/look/${imageIndex}/likes/${newLikeKey}`
       );
 
-      // //유저저장
       update(getLikesReference, {
         user: authUser.email,
         uuid: newLikeKey,
       });
 
-      // //카운트+1
       update(getCountReference, {
         count: (lookDatabase as IimageDataProperty).count + 1,
       });
-
-      //  saveUserFirebase(
-      //   lookDatabase as IimageDataProperty,
-      //   authUser.email
-      // );
     }
   };
 
@@ -228,6 +213,6 @@ function Like({ images }: IimageProps) {
       </div>
     </>
   );
-}
+};
 
 export default Like;
