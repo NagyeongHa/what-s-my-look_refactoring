@@ -6,4 +6,6 @@ const ModalPortal = ({ children }: IModalProps) => {
   return ReactDOM.createPortal(children, el);
 };
 
+console.log('hello');
+
 export default ModalPortal;
