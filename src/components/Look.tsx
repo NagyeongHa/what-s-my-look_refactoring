@@ -93,7 +93,6 @@ const Look = () => {
           {lookList.map((item, idx) => (
             <button
               key={idx}
-              id={idx}
               onClick={lookButtonClick}
               className='filter-button'
             >
@@ -101,6 +100,7 @@ const Look = () => {
             </button>
           ))}
         </div>
+
         <div className='card'>
           {isClick
             ? imgArray.map((item, idx) => (
