@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
-import { IModalProps } from '../types/IModalProps';
+import { TModalProps } from '../types/TModalProps';
 
-const ModalPortal = ({ children }: IModalProps) => {
+const ModalPortal = ({ children }: TModalProps) => {
   const el = document.getElementById('modal') as HTMLElement;
   return ReactDOM.createPortal(children, el);
 };

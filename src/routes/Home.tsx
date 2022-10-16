@@ -3,18 +3,18 @@ import '../styles/global.css';
 import Header from '../components/Header';
 import Look from '../components/Look';
 import { useState, useEffect } from 'react';
-import { IweatherValues } from '../types/IweatherValues';
+import { TWeatherProps } from '../types/TWeatherProps';
 import { weatherStateContext } from '../Context/weatherContext';
-import { IweatherPositionValues } from '../types/IweatherPositionValues';
+import { TWeatherPostionProps } from '../types/TweatherPositionValues';
 
 const Home = () => {
-  const [weather, setWeather] = useState<IweatherValues>({
+  const [weather, setWeather] = useState<TWeatherProps>({
     city: '',
     temp: 0,
   });
 
   useEffect(() => {
-    const getWeather = (position: IweatherPositionValues) => {
+    const getWeather = (position: TWeatherPostionProps) => {
       const API_KEY = `e123d48bb001a8c0ad07e24fc9cc04bb`;
 
       const lat = position.coords.latitude;

@@ -1,10 +1,10 @@
-import { IimageDataProperty } from '../types/IimageDataProperty';
+import { IImageDataProperty } from '../types/IImageDataProperty';
 import { update, ref, push, child, onValue } from 'firebase/database';
 import { database } from '../components/firebase';
 
 //파이어베이스 저장
 export const saveUserFirebase = (
-  images: IimageDataProperty,
+  images: IImageDataProperty,
   userEmail: string
 ) => {
   const imageIndex = images.id - 1;
@@ -19,7 +19,7 @@ export const saveUserFirebase = (
   onValue(ref(database, `database/look/${imageIndex}/likes`), (snapshot) => {
     //likes배열 존재한다면
     if (snapshot.exists()) {
-      const user: IimageDataProperty[] = Object.values(snapshot.val());
+      const user: IImageDataProperty[] = Object.values(snapshot.val());
 
       //좋아요 누른 사람 중에 로그인한 유저의 이메일이 있다면
       if (user.map((item) => item.user === userEmail)) {

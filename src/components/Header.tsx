@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import '../styles/Header.css';
+
 import logo from '../assets/icon/logo.svg';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { authState } from '../recoil/authState';
@@ -10,10 +10,11 @@ import { modalState } from '../recoil/modalState';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
+import styled from 'styled-components';
 
 const Header = () => {
-  const [isNavOn, setIsNavOn] = useState(false);
-  const [isModalOn, setIsModalOn] = useRecoilState(modalState);
+  const [isScroll, setIsScroll] = useState(false);
+  const [isModal, setIsModal] = useRecoilState(modalState);
   const authedUser = useRecoilValue(authState);
   const handleModal = useSetRecoilState(modalState);
   const location = useLocation();
@@ -21,16 +22,16 @@ const Header = () => {
 
   const handleNav = () => {
     if (window.scrollY > 500) {
-      setIsNavOn(true);
+      setIsScroll(true);
     } else if (window.scrollY < 200) {
-      setIsNavOn(false);
+      setIsScroll(false);
     }
   };
   console.log(location.pathname);
 
   useEffect(() => {
     if (location.pathname === '/liked') {
-      setIsNavOn(true);
+      setIsScroll(true);
     }
 
     if (location.pathname === '/') {
@@ -44,21 +45,16 @@ const Header = () => {
   const logout = () => {
     signOut(auth).then(() => alert('logout!'));
     localStorage.removeItem('recoil-persist');
-
     handleModal((prev) => !prev);
-    // window.location.href = 'https://what-s-my-look.web.app/';
-    window.location.href = 'http://localhost:3000/';
-
-    document.body.style.overflow = 'unset';
+    navigate('/');
   };
 
-  const liked = () => {
-    // window.location.href = 'https://what-s-my-look.web.app/liked';
+  const toLiked = () => {
     navigate('/liked');
   };
 
-  const modalHandler = () => {
-    setIsModalOn((prev) => !prev);
+  const modal = () => {
+    setIsModal((prev) => !prev);
   };
 
   const isUserAuthed = () => {
@@ -69,37 +65,64 @@ const Header = () => {
   };
 
   return (
-    <header>
-      <div className={isNavOn ? 'nav-actived' : 'none'}>
-        <div className='nav-title'>
+    <>
+      {isScroll ? (
+        <HeaderTheme>
           <Link to='/'>
             <img src={logo} alt='' />
           </Link>
-        </div>
 
-        <div className='nav-content'>
-          {window.location.pathname === '/liked' ? (
-            <span onClick={logout}>Logout</span>
+          {authedUser ? (
+            <CustomButtonGroup>
+              <CustomButton onClick={logout}>Logout</CustomButton>
+              <CustomButton onClick={toLiked}>Liked</CustomButton>
+            </CustomButtonGroup>
           ) : (
-            <>
-              {authedUser ? (
-                <>
-                  <button onClick={logout}>Logout</button>
-                  <button onClick={liked}>Liked</button>
-                </>
-              ) : (
-                <>
-                  <button onClick={modalHandler}>Login</button>
-                  <button onClick={isUserAuthed}>Liked</button>
-                  <ModalPortal>{isModalOn && <Modal />}</ModalPortal>
-                </>
-              )}
-            </>
+            <CustomButtonGroup>
+              <CustomButton onClick={modal}>Login</CustomButton>
+              <CustomButton onClick={isUserAuthed}>Liked</CustomButton>
+              <ModalPortal>{isModal && <Modal />}</ModalPortal>
+            </CustomButtonGroup>
           )}
-        </div>
-      </div>
-    </header>
+        </HeaderTheme>
+      ) : null}
+    </>
   );
 };
+
+const HeaderTheme = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 3.8rem;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  font-size: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+  z-index: 99;
+
+  img {
+    position: relative;
+    left: 40rem;
+    width: 22rem;
+    height: 3rem;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+`;
+
+export const CustomButton = styled.button`
+  background-color: #fff;
+  color: black;
+  margin-right: 0.4rem;
+`;
+
+export const CustomButtonGroup = styled.div`
+  width: 12rem;
+  height: 4rem;
+`;
 
 export default Header;

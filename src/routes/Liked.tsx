@@ -4,14 +4,14 @@ import Header from '../components/Header';
 import Like from '../components/Like';
 import { authState } from '../recoil/authState';
 import _ from 'lodash';
-import { IimageDataProperty } from '../types/IimageDataProperty';
+import { IImageDataProperty } from '../types/IImageDataProperty';
 import { useEffect } from 'react';
 import { saveUserFirebase } from '../components/saveFirebase';
 import { useLocation } from 'react-router-dom';
 
 const Liked = () => {
   const getLikedImagesState = localStorage.getItem('likedImages');
-  const likedImages: IimageDataProperty[] = JSON.parse(
+  const likedImages: IImageDataProperty[] = JSON.parse(
     getLikedImagesState || '[]'
   ); //로그인 좋아요
 
@@ -24,7 +24,7 @@ const Liked = () => {
     //비로그인 좋아요
     if (unAuthedLikeImage.length > 0 && authUser) {
       //비로그인 좋아요 사진 O & 로그인 좋아요 사진 X
-      if (likedImages.length === 0) {
+      if (!likedImages?.length) {
         //세션 -> 로컬 저장
         localStorage.setItem(
           'likedImages',
@@ -32,7 +32,7 @@ const Liked = () => {
         );
 
         //파이어베이스 저장
-        unAuthedLikeImage.map((images: IimageDataProperty) =>
+        unAuthedLikeImage.map((images: IImageDataProperty) =>
           saveUserFirebase(images, authUser.email)
         );
 
@@ -44,7 +44,7 @@ const Liked = () => {
       //비로그인 좋아요 사진 O & 로그인 좋아요 사진 O
       if (likedImages.length > 0) {
         //비로그인 + 로그인 사진 합칠 배열 생성
-        let mergeLikedImages: IimageDataProperty[] = [];
+        let mergeLikedImages: IImageDataProperty[] = [];
         mergeLikedImages = [...likedImages];
 
         //로그인배열에 비로그인배열 추가

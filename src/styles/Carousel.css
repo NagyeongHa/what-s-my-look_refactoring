@@ -42,20 +42,18 @@
 .title {
   margin: 0 auto;
 }
-/* what's my look */
+
 .title-content p {
   display: block;
   font-family: 'Frank Ruhl Libre', serif;
   font-size: 2rem;
 }
 
-/* 온도 */
 .title span {
   font-family: 'Frank Ruhl Libre', serif;
   font-size: 1.4rem;
 }
 
-/* 설명글 */
 .title p {
   font-family: 'NanumBarunGothic', sans-serif !important;
   text-shadow: 2px 1px 1px gray;
@@ -73,8 +71,6 @@
   letter-spacing: 3px;
   background-color: #fff;
 }
-
-/* Desktop */
 
 @media screen and (min-width: 768px) {
   .title {
@@ -96,20 +92,18 @@
     top: 13rem;
     font-size: 1.8rem;
     text-align: left;
-    /* text-shadow: 4px 2px 2px gray; */
+
     line-height: 2;
     letter-spacing: 0.01;
     color: #fff;
   }
 
-  /* what's my look */
   .title-content p {
     display: block;
     font-size: 4rem;
     text-shadow: 2px 1px 1px gray;
   }
 
-  /* 온도 */
   .title span {
     font-size: 2.5rem;
     text-shadow: 2px 1px 1px gray;
@@ -119,14 +113,12 @@
     font-size: 2rem;
   }
 
-  /* 설명글 */
   .title p {
     text-shadow: 2px 1px 1px gray;
     font-size: 1rem;
   }
 
   .title button {
-    /* margin-top: 2rem; */
     font-size: 1.1rem;
     width: 17rem;
     height: 3rem;

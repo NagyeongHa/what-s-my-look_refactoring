@@ -1,10 +1,10 @@
 import '../styles/Carousel.css';
 import React, { useContext } from 'react';
 import { weatherStateContext } from '../Context/weatherContext';
-import { IweatherValues } from '../types/IweatherValues';
+import { TWeatherProps } from '../types/TWeatherProps';
 
 const WeatherInfo = () => {
-  const weather = useContext<IweatherValues>(weatherStateContext);
+  const weather = useContext<TWeatherProps>(weatherStateContext);
 
   const scrollTo = () => {
     window.scrollTo(0, 1000);

@@ -1,4 +1,4 @@
 import React from 'react';
-export interface IModalProps {
+export type TModalProps = {
   children?: React.ReactNode;
-}
+};

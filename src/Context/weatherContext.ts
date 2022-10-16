@@ -1,7 +1,7 @@
 import { createContext } from 'react';
-import { IweatherValues } from '../types/IweatherValues';
+import { TWeatherProps } from '../types/TWeatherProps';
 
-export const weatherStateContext = createContext<IweatherValues>({
+export const weatherStateContext = createContext<TWeatherProps>({
   city: '',
   temp: 17,
 });

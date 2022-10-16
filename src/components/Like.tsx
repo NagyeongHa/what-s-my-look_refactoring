@@ -7,17 +7,19 @@ import { useRecoilValue } from 'recoil';
 import { authState } from '../recoil/authState';
 import { database } from './firebase';
 import _ from 'lodash';
-import { IimageDataProperty } from '../types/IimageDataProperty';
-import { IimageProps } from '../types/IimageProps';
+import { IImageDataProperty } from '../types/IImageDataProperty';
+import { IimageItemProperty } from '../types/IimageItemProperty';
 
-const Like = ({ images }: IimageProps) => {
+const Like = ({ images }: IImageDataProperty) => {
   const [isLike, setIsLike] = useState(false);
   const [lookDatabase, setLookDatabase] = useState({});
   const [unAuthedUser, setUnAuthedUser] = useState(false);
 
   const authUser = useRecoilValue(authState);
-  const imageIndex = images.id - 1;
+  const imageIndex = (images.id - 1) as number;
   const getCountReference = ref(database, `database/look/${imageIndex}`);
+
+  console.log(images.id);
 
   useEffect(() => {
     if (!authUser) {
@@ -38,14 +40,14 @@ const Like = ({ images }: IimageProps) => {
 
   useEffect(() => {
     //비로그인
-    const sessionData: IimageDataProperty[] = JSON.parse(
+    const sessionData: IImageDataProperty[] = JSON.parse(
       sessionStorage.getItem('nonLoginLikedImages') || '[]'
     );
 
     if (!authUser) {
       if (
         sessionData.find(
-          (item) => item.id === (lookDatabase as IimageDataProperty).id
+          (item) => item.id === (lookDatabase as IImageDataProperty).id
         )
       ) {
         setIsLike(true);
@@ -57,9 +59,9 @@ const Like = ({ images }: IimageProps) => {
 
     //로그인
     if (authUser) {
-      if ((lookDatabase as IimageDataProperty).likes) {
+      if ((lookDatabase as IImageDataProperty).likes) {
         const userLiked = Object.values(
-          (lookDatabase as IimageDataProperty).likes
+          (lookDatabase as IImageDataProperty).likes
         );
 
         if (userLiked.find((item) => item.user === authUser.email)) {
@@ -111,7 +113,7 @@ const Like = ({ images }: IimageProps) => {
       });
 
       update(getCountReference, {
-        count: (lookDatabase as IimageDataProperty).count + 1,
+        count: (lookDatabase as IImageDataProperty).count + 1,
       });
     }
   };
@@ -121,8 +123,8 @@ const Like = ({ images }: IimageProps) => {
     setIsLike(false);
 
     //로그인
-    if (authUser && (lookDatabase as IimageDataProperty).likes) {
-      const toArray = Object.values((lookDatabase as IimageDataProperty).likes);
+    if (authUser && (lookDatabase as IImageDataProperty).likes) {
+      const toArray = Object.values((lookDatabase as IImageDataProperty).likes);
       const userFilter = toArray.filter((item) => item.user === authUser.email);
       const likesUuid = userFilter[0].uuid;
 
@@ -135,7 +137,7 @@ const Like = ({ images }: IimageProps) => {
 
       //카운트-1
       update(getCountReference, {
-        count: (lookDatabase as IimageDataProperty).count - 1,
+        count: (lookDatabase as IImageDataProperty).count - 1,
       });
     }
   };
@@ -178,7 +180,7 @@ const Like = ({ images }: IimageProps) => {
 
       if (getLocalImages) {
         const deleteLikedImages = getLocalImages.filter(
-          (item: IimageDataProperty) => item.id !== images.id
+          (item: IImageDataProperty) => item.id !== images.id
         );
 
         localStorage.setItem('likedImages', JSON.stringify(deleteLikedImages));
@@ -193,7 +195,7 @@ const Like = ({ images }: IimageProps) => {
       );
 
       const deleteLikedImages = prevSessionImages.filter(
-        (item: IimageDataProperty) => item.id !== images.id
+        (item: IImageDataProperty) => item.id !== images.id
       );
 
       sessionStorage.setItem(
@@ -209,7 +211,7 @@ const Like = ({ images }: IimageProps) => {
         <button onClick={toggleLike}>
           <img src={isLike ? like : unLike} alt='' className='icon like' />
         </button>
-        {authUser ? (lookDatabase as IimageDataProperty).count : ''}
+        {authUser ? (lookDatabase as IImageDataProperty).count : ''}
       </div>
     </>
   );

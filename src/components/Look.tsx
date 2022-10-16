@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { getImageApi } from '../recoil/apiCallSelector';
 import { weatherStateContext } from '../Context/weatherContext';
-import { IimageDataProperty } from '../types/IimageDataProperty';
+import { IImageDataProperty } from '../types/IImageDataProperty';
 
 const Look = () => {
   const lookList = ['casual', 'modern', 'street', 'romantic'];
@@ -12,7 +12,7 @@ const Look = () => {
   const weather = useContext(weatherStateContext);
   const temp = Math.round(weather.temp);
   const [nowTemp, setNowTemp] = useState(0);
-  const [imgArray, setImgArray] = useState<IimageDataProperty[]>([]);
+  const [imgArray, setImgArray] = useState<IImageDataProperty[]>([]);
   const [isClick, setIsClick] = useState(false);
 
   useEffect(() => {
@@ -88,39 +88,33 @@ const Look = () => {
 
   return (
     <>
-      <section>
-        <div className='filter'>
-          {lookList.map((item, idx) => (
-            <button
-              key={idx}
-              onClick={lookButtonClick}
-              className='filter-button'
-            >
-              {item}
-            </button>
-          ))}
-        </div>
+      <div className='filter'>
+        {lookList.map((item, idx) => (
+          <button key={idx} onClick={lookButtonClick} className='filter-button'>
+            {item}
+          </button>
+        ))}
+      </div>
 
-        <div className='card'>
-          {isClick
-            ? imgArray.map((item, idx) => (
-                <div key={idx} className='image-box'>
-                  <img src={item.src} key={item.id} className='image' />
-                  <div className='icon-wrapper'>
-                    <Like images={item} />
-                  </div>
+      <div className='card'>
+        {isClick
+          ? imgArray.map((item) => (
+              <div key={item.id} className='image-box'>
+                <img src={item.src} key={item.id} className='image' />
+                <div className='icon-wrapper'>
+                  <Like images={item} />
                 </div>
-              ))
-            : defaultArray.map((item, idx) => (
-                <div key={idx} className='image-box'>
-                  <img src={item.src} key={item.id} className='image' />
-                  <div className='icon-wrapper'>
-                    <Like images={item} />
-                  </div>
+              </div>
+            ))
+          : defaultArray.map((item) => (
+              <div key={item.id} className='image-box'>
+                <img src={item.src} key={item.id} className='image' />
+                <div className='icon-wrapper'>
+                  <Like images={item} />
                 </div>
-              ))}
-        </div>
-      </section>
+              </div>
+            ))}
+      </div>
     </>
   );
 };
