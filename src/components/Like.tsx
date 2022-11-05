@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { authState } from '../recoil/authState';
 import { database } from './firebase';
 import _ from 'lodash';
-import { IImageDataProperty } from '../types/IImageDataProperty';
+import { IImageDataProperty } from '../types/IimageDataProperty';
 
 const Like = ({ images }: IImageDataProperty) => {
   const [isLike, setIsLike] = useState(false);

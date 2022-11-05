@@ -1,4 +1,4 @@
-import { IImageDataProperty } from '../types/IImageDataProperty';
+import { IImageDataProperty } from '../types/IimageDataProperty';
 import { update, ref, push, child, onValue } from 'firebase/database';
 import { database } from './firebase';
 

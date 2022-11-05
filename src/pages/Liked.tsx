@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Like from '../components/Like';
 import { authState } from '../recoil/authState';
 import _ from 'lodash';
-import { IImageDataProperty } from '../types/IImageDataProperty';
+import { IImageDataProperty } from '../types/IimageDataProperty';
 import { useEffect } from 'react';
 import { saveUserFirebase } from '../components/saveFirebase';
 import { useLocation } from 'react-router-dom';

@@ -1,15 +1,15 @@
-import { useContext } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { titleItems } from './titleImage';
 import styled from 'styled-components';
-import { weatherStateContext } from '../Context/weatherContext';
-import { TWeatherProps } from '../types/TWeatherProps';
 import { CustomButton } from './Header';
+import { useRecoilValue } from 'recoil';
+import { weatherState } from '../recoil/weatherState';
+import { TWeatherProps } from '../types/TWeatherProps';
 
 const Carousel = () => {
-  const weather = useContext<TWeatherProps>(weatherStateContext);
+  const weather = useRecoilValue<TWeatherProps>(weatherState);
 
   const scrollTo = () => {
     window.scrollTo(0, 1000);
@@ -96,11 +96,6 @@ const LandingText = styled.div`
     font-size: 0.4rem;
   }
 
-  span {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 1.4rem;
-  }
-
   @media screen and (min-width: 768px) {
     padding: 0 4rem;
     position: fixed;
@@ -123,16 +118,18 @@ const LandingText = styled.div`
 `;
 
 const WeatherInfo = styled.span`
+  font-family: 'Frank Ruhl Libre', serif;
   font-size: 2.5rem;
   text-shadow: 2px 1px 1px gray;
 `;
 
 const ScrollButton = styled(CustomButton)`
   margin-top: 1rem;
+  padding: 0.4rem 1rem;
   font-family: 'NanumBarunGothic', sans-serif !important;
-  font-size: 0.7rem;
-  width: 11rem;
-  height: 2rem;
+  font-size: 0.9rem;
+  width: auto;
+  height: 2.3rem;
   border-radius: 5px;
   border: none;
   letter-spacing: 3px;

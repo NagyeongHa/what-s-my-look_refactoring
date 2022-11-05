@@ -1,126 +1,172 @@
-import '../styles/Look.css';
-import Like from './Like';
-import { useContext, useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
-import { getImageApi } from '../recoil/apiCallSelector';
-import { weatherStateContext } from '../Context/weatherContext';
-import { IImageDataProperty } from '../types/IImageDataProperty';
+// import '../styles/Look.css';
+// import Like from './Like';
+// import { useContext, useState, useEffect } from 'react';
+// import { useRecoilValue } from 'recoil';
+// import { getImageApi } from '../recoil/apiCallSelector';
+// import { weatherStateContext } from '../Context/weatherContext';
+// import { IImageDataProperty } from '../types/IimageDataProperty';
+
+// const Look = () => {
+//   const lookList = ['casual', 'modern', 'street', 'romantic'];
+//   const images = useRecoilValue(getImageApi);
+//   const weather = useContext(weatherStateContext);
+//   const temp = Math.round(weather.temp);
+//   const [nowTemp, setNowTemp] = useState(0);
+//   const [imgArray, setImgArray] = useState<IImageDataProperty[]>([]);
+//   const [isClick, setIsClick] = useState(false);
+
+//   console.log('this is for commit');
+
+//   useEffect(() => {
+//     const weatherLevel = {
+//       highTemp: temp >= 28,
+//       summer: temp >= 23 && temp < 28,
+//       spring: temp >= 20 && temp <= 22,
+//       middleTemp: temp >= 17 && temp <= 19,
+//       autumn: temp >= 12 && temp <= 16,
+//       iffy: temp >= 9 && temp <= 11,
+//       winter: temp >= 5 && temp <= 8,
+//       lowTemp: temp <= 4,
+//     };
+//4도이하 / 5~8 / 9~11/ 12~16/17-19/20-22/23-28/ 28도이상
+//0 / 4/ 5/ 9/12/ 17/20 /23/ 27
+//     const {
+//       highTemp,
+//       summer,
+//       spring,
+//       middleTemp,
+//       autumn,
+//       iffy,
+//       winter,
+//       lowTemp,
+//     } = weatherLevel;
+
+//     if (highTemp) {
+//       setNowTemp(27);
+//       return;
+//     }
+//     if (summer) {
+//       setNowTemp(23);
+//       return;
+//     }
+//     if (spring) {
+//       setNowTemp(20);
+//       return;
+//     }
+//     if (middleTemp) {
+//       setNowTemp(17);
+//       return;
+//     }
+//     if (autumn) {
+//       setNowTemp(12);
+//       return;
+//     }
+//     if (iffy) {
+//       setNowTemp(9);
+//       return;
+//     }
+//     if (winter) {
+//       setNowTemp(5);
+//       return;
+//     }
+//     if (lowTemp) {
+//       setNowTemp(4);
+//       return;
+//     }
+
+//     return () => setNowTemp(0);
+//   }, [temp]);
+
+//   const defaultArray = Object.values(images as object).filter(
+//     (image) => image.temperature === nowTemp
+//   );
+
+//   const lookButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+//     const buttonName = (e.target as HTMLButtonElement).textContent;
+//     const result = Object.values(images as object).filter(
+//       (image) => image.look === buttonName && image.temperature === nowTemp
+//     );
+
+//     setImgArray(result);
+//     setIsClick(true);
+//   };
+
+//   return (
+//     <>
+//       <div className='filter'>
+//         {lookList.map((item, idx) => (
+//           <button key={idx} onClick={lookButtonClick} className='filter-button'>
+//             {item}
+//           </button>
+//         ))}
+//       </div>
+
+//       <div className='card'>
+//         {isClick
+//           ? imgArray.map((item) => (
+//               <div key={item.id} className='image-box'>
+//                 <img src={item.src} key={item.id} className='image' />
+//                 <div className='icon-wrapper'>
+//                   <Like images={item} />
+//                 </div>
+//               </div>
+//             ))
+//           : defaultArray.map((item) => (
+//               <div key={item.id} className='image-box'>
+//                 <img src={item.src} key={item.id} className='image' />
+//                 <div className='icon-wrapper'>
+//                   <Like images={item} />
+//                 </div>
+//               </div>
+//             ))}
+//       </div>
+//     </>
+//   );
+// };
+
+// export default Look;
+
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { ILook } from '../types/ILookProperty';
+import { defaultApi } from '../utils/apiInstance';
+import LookItem from './LookItem';
+import StyleFilter from './StyleFilter';
 
 const Look = () => {
-  const lookList = ['casual', 'modern', 'street', 'romantic'];
-  const images = useRecoilValue(getImageApi);
-  const weather = useContext(weatherStateContext);
-  const temp = Math.round(weather.temp);
-  const [nowTemp, setNowTemp] = useState(0);
-  const [imgArray, setImgArray] = useState<IImageDataProperty[]>([]);
-  const [isClick, setIsClick] = useState(false);
-
-  console.log('this is for commit');
+  const [lookData, setLookData] = useState<ILook[]>([]);
+  const [style, setStyle] = useState('');
+  console.log(style);
 
   useEffect(() => {
-    const weatherLevel = {
-      highTemp: temp >= 28,
-      summer: temp >= 23 && temp < 28,
-      spring: temp >= 20 && temp <= 22,
-      middleTemp: temp >= 17 && temp <= 19,
-      autumn: temp >= 12 && temp <= 16,
-      iffy: temp >= 9 && temp <= 11,
-      winter: temp >= 5 && temp <= 8,
-      lowTemp: temp <= 4,
-    };
+    defaultApi
+      .get(`/post/image?temperature=5&style=${style}`)
+      .then((res) => setLookData(res.data))
+      .catch((err) => console.log(err));
+  }, [style]);
 
-    const {
-      highTemp,
-      summer,
-      spring,
-      middleTemp,
-      autumn,
-      iffy,
-      winter,
-      lowTemp,
-    } = weatherLevel;
+  console.log(lookData);
 
-    if (highTemp) {
-      setNowTemp(27);
-      return;
-    }
-    if (summer) {
-      setNowTemp(23);
-      return;
-    }
-    if (spring) {
-      setNowTemp(20);
-      return;
-    }
-    if (middleTemp) {
-      setNowTemp(17);
-      return;
-    }
-    if (autumn) {
-      setNowTemp(12);
-      return;
-    }
-    if (iffy) {
-      setNowTemp(9);
-      return;
-    }
-    if (winter) {
-      setNowTemp(5);
-      return;
-    }
-    if (lowTemp) {
-      setNowTemp(4);
-      return;
-    }
-
-    return () => setNowTemp(0);
-  }, [temp]);
-
-  const defaultArray = Object.values(images as object).filter(
-    (image) => image.temperature === nowTemp
-  );
-
-  const lookButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const buttonName = (e.target as HTMLButtonElement).textContent;
-    const result = Object.values(images as object).filter(
-      (image) => image.look === buttonName && image.temperature === nowTemp
-    );
-
-    setImgArray(result);
-    setIsClick(true);
+  const selectStyle = (styleState: string) => {
+    setStyle(styleState);
   };
 
   return (
-    <>
-      <div className='filter'>
-        {lookList.map((item, idx) => (
-          <button key={idx} onClick={lookButtonClick} className='filter-button'>
-            {item}
-          </button>
+    <div>
+      <StyleFilter selectStyleHandler={selectStyle} />
+      <ImageWrapper>
+        {lookData.map((item) => (
+          <LookItem key={item.post_id} post={item} />
         ))}
-      </div>
-
-      <div className='card'>
-        {isClick
-          ? imgArray.map((item) => (
-              <div key={item.id} className='image-box'>
-                <img src={item.src} key={item.id} className='image' />
-                <div className='icon-wrapper'>
-                  <Like images={item} />
-                </div>
-              </div>
-            ))
-          : defaultArray.map((item) => (
-              <div key={item.id} className='image-box'>
-                <img src={item.src} key={item.id} className='image' />
-                <div className='icon-wrapper'>
-                  <Like images={item} />
-                </div>
-              </div>
-            ))}
-      </div>
-    </>
+      </ImageWrapper>
+    </div>
   );
 };
 
+const ImageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+`;
 export default Look;
