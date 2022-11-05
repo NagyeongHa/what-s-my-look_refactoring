@@ -10,9 +10,9 @@ const GlobalStyles = createGlobalStyle`
 
     html,
     body {
-    height: 100%;
     margin: 0;
     scroll-behavior: smooth;
+    overflow-x: hidden;
     }
 
     html, body, div, span, applet, object, iframe,

@@ -1,6 +1,6 @@
 import { IImageDataProperty } from '../types/IImageDataProperty';
 import { update, ref, push, child, onValue } from 'firebase/database';
-import { database } from '../components/firebase';
+import { database } from './firebase';
 
 //파이어베이스 저장
 export const saveUserFirebase = (

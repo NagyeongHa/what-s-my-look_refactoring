@@ -78,8 +78,8 @@ const Liked = () => {
       <Header />
       <div className='card likedPage'>
         {likedImages.length > 0 ? (
-          Object.values(likedImages).map((item, idx) => (
-            <div key={idx}>
+          Object.values(likedImages).map((item) => (
+            <div key={item.id}>
               <img src={item.src} key={item.id} className='image' />
               <div className='icon-wrapper'>
                 <Like images={item} />

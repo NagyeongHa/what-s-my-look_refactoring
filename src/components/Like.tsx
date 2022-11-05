@@ -8,7 +8,6 @@ import { authState } from '../recoil/authState';
 import { database } from './firebase';
 import _ from 'lodash';
 import { IImageDataProperty } from '../types/IImageDataProperty';
-import { IimageItemProperty } from '../types/IimageItemProperty';
 
 const Like = ({ images }: IImageDataProperty) => {
   const [isLike, setIsLike] = useState(false);
@@ -25,6 +24,8 @@ const Like = ({ images }: IImageDataProperty) => {
     if (!authUser) {
       setUnAuthedUser(true);
     }
+
+    return () => setUnAuthedUser(false);
   }, [authUser]);
 
   useEffect(() => {
@@ -35,8 +36,9 @@ const Like = ({ images }: IImageDataProperty) => {
         .then((response) => response.json())
         .then((data) => setLookDatabase(data));
     };
+
     res();
-  }, [imageIndex, isLike]);
+  }, [imageIndex]);
 
   useEffect(() => {
     //비로그인

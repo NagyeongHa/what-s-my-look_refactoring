@@ -70,6 +70,8 @@ const Look = () => {
       setNowTemp(4);
       return;
     }
+
+    return () => setNowTemp(0);
   }, [temp]);
 
   const defaultArray = Object.values(images as object).filter(

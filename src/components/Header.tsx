@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 import logo from '../assets/icon/logo.svg';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { authState } from '../recoil/authState';
@@ -7,46 +5,22 @@ import ModalPortal from './ModalPortal';
 import Modal from './Modal';
 import '../styles/Modal.css';
 import { modalState } from '../recoil/modalState';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
 import styled from 'styled-components';
 
 const Header = () => {
-  const [isScroll, setIsScroll] = useState(false);
   const [isModal, setIsModal] = useRecoilState(modalState);
   const authedUser = useRecoilValue(authState);
   const handleModal = useSetRecoilState(modalState);
-  const location = useLocation();
   const navigate = useNavigate();
-
-  const handleNav = () => {
-    if (window.scrollY > 500) {
-      setIsScroll(true);
-    } else if (window.scrollY < 200) {
-      setIsScroll(false);
-    }
-  };
-  console.log(location.pathname);
-
-  useEffect(() => {
-    if (location.pathname === '/liked') {
-      setIsScroll(true);
-    }
-
-    if (location.pathname === '/') {
-      window.addEventListener('scroll', handleNav);
-      return () => {
-        window.removeEventListener('scroll', handleNav);
-      };
-    }
-  }, [location.pathname]);
 
   const logout = () => {
     signOut(auth).then(() => alert('logout!'));
     localStorage.removeItem('recoil-persist');
     handleModal((prev) => !prev);
-    navigate('/');
+    window.location.reload();
   };
 
   const toLiked = () => {
@@ -57,35 +31,27 @@ const Header = () => {
     setIsModal((prev) => !prev);
   };
 
-  const isUserAuthed = () => {
-    if (!authedUser) {
-      alert('로그인 후 이용해주세요.');
-      return;
-    }
-  };
-
   return (
     <>
-      {isScroll ? (
-        <HeaderTheme>
-          <Link to='/'>
-            <img src={logo} alt='' />
-          </Link>
+      <HeaderTheme>
+        <Link to='/'>
+          <img src={logo} alt='' />
+        </Link>
 
+        <CustomButtonGroup>
           {authedUser ? (
-            <CustomButtonGroup>
+            <>
               <CustomButton onClick={logout}>Logout</CustomButton>
-              <CustomButton onClick={toLiked}>Liked</CustomButton>
-            </CustomButtonGroup>
+              <CustomButton onClick={toLiked}>My</CustomButton>
+            </>
           ) : (
-            <CustomButtonGroup>
+            <>
               <CustomButton onClick={modal}>Login</CustomButton>
-              <CustomButton onClick={isUserAuthed}>Liked</CustomButton>
               <ModalPortal>{isModal && <Modal />}</ModalPortal>
-            </CustomButtonGroup>
+            </>
           )}
-        </HeaderTheme>
-      ) : null}
+        </CustomButtonGroup>
+      </HeaderTheme>
     </>
   );
 };
@@ -96,7 +62,7 @@ const HeaderTheme = styled.header`
   align-items: center;
   position: fixed;
   width: 100%;
-  height: 3.8rem;
+  height: 3.2rem;
   top: 0;
   left: 0;
   background-color: #fff;
@@ -105,12 +71,11 @@ const HeaderTheme = styled.header`
   z-index: 99;
 
   img {
-    position: relative;
-    left: 40rem;
-    width: 22rem;
-    height: 3rem;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-right: 12rem;
+    width: 20rem;
+    height: 3.2rem;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 `;
 
@@ -121,6 +86,7 @@ export const CustomButton = styled.button`
 `;
 
 export const CustomButtonGroup = styled.div`
+  padding-top: 10px;
   width: 12rem;
   height: 4rem;
 `;
