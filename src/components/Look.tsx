@@ -15,6 +15,8 @@ const Look = () => {
   const [imgArray, setImgArray] = useState<IImageDataProperty[]>([]);
   const [isClick, setIsClick] = useState(false);
 
+  console.log('this is for commit');
+
   useEffect(() => {
     const weatherLevel = {
       highTemp: temp >= 28,
