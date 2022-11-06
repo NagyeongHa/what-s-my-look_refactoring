@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from '../styles/theme';
 
 export interface StyleFilterProp {
   selectStyleHandler: (styleState: string) => void;
@@ -21,15 +22,21 @@ const StyleFilter = ({ selectStyleHandler }: StyleFilterProp) => {
     </ButtonWrapper>
   );
 };
+
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  margin: 2rem auto;
+  margin: 1.7rem auto 1.1rem auto;
   text-align: center;
+
+  @media ${theme.device.desktop} {
+    margin: 3rem auto 1.7rem auto;
+  }
 `;
+
 const StyleButton = styled.button`
   padding: 0.3rem 0.6rem;
   margin: 0.4rem 0.4rem;
@@ -38,6 +45,13 @@ const StyleButton = styled.button`
   border-radius: 30px;
   box-shadow: 5px 5px 9px -5px #bcbcbc;
   font-size: 0.7rem;
+  font-family: ${theme.font.bold};
+
+  @media ${theme.device.desktop} {
+    font-size: 1.3rem;
+    margin: 0.8rem 1rem;
+    padding: 0.6rem 2rem;
+  }
 
   &:focus {
     background-color: gray;

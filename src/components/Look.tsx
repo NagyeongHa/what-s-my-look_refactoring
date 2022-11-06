@@ -127,7 +127,10 @@
 // export default Look;
 
 import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { weatherState } from '../recoil/weatherState';
+import theme from '../styles/theme';
 import { ILook } from '../types/ILookProperty';
 import { defaultApi } from '../utils/apiInstance';
 import LookItem from './LookItem';
@@ -136,16 +139,16 @@ import StyleFilter from './StyleFilter';
 const Look = () => {
   const [lookData, setLookData] = useState<ILook[]>([]);
   const [style, setStyle] = useState('');
-  console.log(style);
+  const temperature = useRecoilValue(weatherState);
+  const roundTemperature = Math.round(temperature.temp);
+  console.log(lookData);
 
   useEffect(() => {
     defaultApi
-      .get(`/post/image?temperature=5&style=${style}`)
+      .get(`/post/image?temperature=${roundTemperature}&style=${style}`)
       .then((res) => setLookData(res.data))
       .catch((err) => console.log(err));
-  }, [style]);
-
-  console.log(lookData);
+  }, [roundTemperature, style]);
 
   const selectStyle = (styleState: string) => {
     setStyle(styleState);
@@ -154,19 +157,44 @@ const Look = () => {
   return (
     <div>
       <StyleFilter selectStyleHandler={selectStyle} />
-      <ImageWrapper>
+      <LookContainer>
         {lookData.map((item) => (
-          <LookItem key={item.post_id} post={item} />
+          <LookCard key={item.post_id}>
+            <LookItem post={item} />
+          </LookCard>
         ))}
-      </ImageWrapper>
+      </LookContainer>
     </div>
   );
 };
 
-const ImageWrapper = styled.div`
+const LookContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
+
+  @media ${theme.device.desktop} {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: start;
+    width: 1500px;
+    text-align: center;
+    margin: 0 auto;
+  }
+`;
+
+const LookCard = styled.div`
+  margin: 0.8rem 0;
+
+  &:first-child {
+    margin-top: 0rem;
+  }
+
+  @media ${theme.device.desktop} {
+    width: 24rem;
+    padding: 1.3rem 1.8rem;
+    margin: 0 0.5rem;
+  }
 `;
 export default Look;

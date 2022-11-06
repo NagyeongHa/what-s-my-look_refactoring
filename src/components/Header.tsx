@@ -67,7 +67,8 @@ const HeaderTheme = styled.header`
   left: 0;
   background-color: #fff;
   font-size: 2rem;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+  /* box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px; */
+  box-shadow: rgb(0 0 0 / 20%) 0px 31px 36px -10px;
   z-index: 99;
 
   img {

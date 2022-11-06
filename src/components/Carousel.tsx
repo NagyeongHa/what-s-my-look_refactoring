@@ -7,6 +7,7 @@ import { CustomButton } from './Header';
 import { useRecoilValue } from 'recoil';
 import { weatherState } from '../recoil/weatherState';
 import { TWeatherProps } from '../types/TWeatherProps';
+import theme from '../styles/theme';
 
 const Carousel = () => {
   const weather = useRecoilValue<TWeatherProps>(weatherState);
@@ -42,19 +43,6 @@ const Carousel = () => {
 };
 
 const LandingTheme = styled.div`
-  @font-face {
-    font-family: 'NanumBarunGothic';
-    font-style: normal;
-    font-weight: 400;
-    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
-    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix')
-        format('embedded-opentype'),
-      url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff')
-        format('woff'),
-      url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf')
-        format('truetype');
-  }
-
   img {
     display: block;
     position: relative;
@@ -86,12 +74,12 @@ const LandingText = styled.div`
 
   h1 {
     display: block;
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: ${theme.font.bold};
     font-size: 2rem;
   }
 
   p {
-    font-family: 'NanumBarunGothic', sans-serif !important;
+    font-family: ${theme.font.thin};
     text-shadow: 2px 1px 1px gray;
     font-size: 0.4rem;
   }
@@ -118,7 +106,7 @@ const LandingText = styled.div`
 `;
 
 const WeatherInfo = styled.span`
-  font-family: 'Frank Ruhl Libre', serif;
+  font-family: ${theme.font.bold};
   font-size: 2.5rem;
   text-shadow: 2px 1px 1px gray;
 `;
@@ -126,7 +114,7 @@ const WeatherInfo = styled.span`
 const ScrollButton = styled(CustomButton)`
   margin-top: 1rem;
   padding: 0.4rem 1rem;
-  font-family: 'NanumBarunGothic', sans-serif !important;
+  font-family: ${theme.font.thin};
   font-size: 0.9rem;
   width: auto;
   height: 2.3rem;
