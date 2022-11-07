@@ -129,12 +129,12 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { weatherState } from '../recoil/weatherState';
-import theme from '../styles/theme';
-import { ILook } from '../types/ILookProperty';
-import { defaultApi } from '../utils/apiInstance';
+import { weatherState } from '../../recoil/weatherState';
+import theme from '../../styles/theme';
+import { ILook } from '../../types/ILookProperty';
+import { defaultApi } from '../../utils/apiInstance';
 import LookItem from './LookItem';
-import StyleFilter from './StyleFilter';
+import StyleFilter from '../StyleFilter';
 
 const Look = () => {
   const [lookData, setLookData] = useState<ILook[]>([]);

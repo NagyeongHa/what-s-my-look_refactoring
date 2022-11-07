@@ -1,6 +1,6 @@
 import Carousel from '../components/Carousel';
 import Header from '../components/Header';
-import Look from '../components/Look';
+import Look from '../components/look/Look';
 import { useState, useEffect } from 'react';
 import WeatherApi from '../service/WeatherApi';
 const Home = () => {

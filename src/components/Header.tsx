@@ -1,25 +1,22 @@
 import logo from '../assets/icon/logo.svg';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { authState } from '../recoil/authState';
-import ModalPortal from './ModalPortal';
-import Modal from './Modal';
 import '../styles/Modal.css';
-import { modalState } from '../recoil/modalState';
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
 import styled from 'styled-components';
+import LoginModal from './modal/LoginModal';
+import { useState } from 'react';
 
 const Header = () => {
-  const [isModal, setIsModal] = useRecoilState(modalState);
+  const [onModal, setOnModal] = useState(false);
   const authedUser = useRecoilValue(authState);
-  const handleModal = useSetRecoilState(modalState);
   const navigate = useNavigate();
 
   const logout = () => {
     signOut(auth).then(() => alert('logout!'));
     localStorage.removeItem('recoil-persist');
-    handleModal((prev) => !prev);
     window.location.reload();
   };
 
@@ -27,8 +24,12 @@ const Header = () => {
     navigate('/liked');
   };
 
-  const modal = () => {
-    setIsModal((prev) => !prev);
+  const handleModal = () => {
+    setOnModal(true);
+  };
+
+  const handleOnModalProp = (bool: boolean) => {
+    setOnModal(bool);
   };
 
   return (
@@ -46,8 +47,8 @@ const Header = () => {
             </>
           ) : (
             <>
-              <CustomButton onClick={modal}>Login</CustomButton>
-              <ModalPortal>{isModal && <Modal />}</ModalPortal>
+              <CustomButton onClick={handleModal}>Login</CustomButton>
+              {onModal && <LoginModal setOnModal={handleOnModalProp} />}
             </>
           )}
         </CustomButtonGroup>

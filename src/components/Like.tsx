@@ -241,12 +241,14 @@ const Like = ({ post_id }: Pick<ILook, 'post_id'>) => {
       .catch((err) => console.log(err));
   }, [post_id, isClick]);
 
-  const upLikeHandler = async () => {
+  const upLikeHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     await defaultApi.post('/like', { post_id, sns_id });
     setIsClick(!isClick);
   };
 
-  const unLikeHandler = async () => {
+  const unLikeHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     await defaultApi.delete('/like', {
       data: {
         post_id,
@@ -269,7 +271,7 @@ const Like = ({ post_id }: Pick<ILook, 'post_id'>) => {
         </Button>
       ) : (
         <Button onClick={upLikeHandler}>
-          <BsHeart className='like-icon' size='1.4rem' />
+          <BsHeart size='1.4rem' />
         </Button>
       )}
       좋아요 {likes.total} 개
@@ -288,10 +290,7 @@ const Button = styled.button`
   margin-left: 0.3rem;
   background: none;
   border: none;
-
-  & > .like-icon {
-    padding-top: 0.2rem;
-  }
+  padding-top: 0.2rem;
 
   @media ${theme.device.desktop} {
     margin: 0;
