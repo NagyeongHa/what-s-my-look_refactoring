@@ -1,5 +1,4 @@
 import { weatherState } from '../recoil/weatherState';
-import { TWeatherPostionProps } from '../types/TWeatherPositionProps';
 import { TWeatherProps } from '../types/TWeatherProps';
 import { useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
@@ -9,7 +8,7 @@ function WeatherApi() {
   const setWeather = useSetRecoilState<TWeatherProps>(weatherState);
 
   useEffect(() => {
-    const getWeather = (position: TWeatherPostionProps) => {
+    const getWeather = (position: GeolocationPosition) => {
       const API_KEY = process.env.REACT_APP_API_KEY;
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;

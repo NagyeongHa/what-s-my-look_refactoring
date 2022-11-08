@@ -266,15 +266,15 @@ const Like = ({ post_id }: Pick<ILook, 'post_id'>) => {
           <BsFillHeartFill
             className='like-icon'
             color='#f10b0b'
-            size='1.4rem'
+            size='1.3rem'
           />
         </Button>
       ) : (
         <Button onClick={upLikeHandler}>
-          <BsHeart size='1.4rem' />
+          <BsHeart size='1.3rem' />
         </Button>
       )}
-      좋아요 {likes.total} 개
+      <span>좋아요{likes.total}개</span>
     </LikeWrapper>
   );
 };
@@ -284,6 +284,11 @@ const LikeWrapper = styled.div`
   flex-wrap: nowrap;
   align-items: center;
   justify-content: start;
+
+  span {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
 `;
 
 const Button = styled.button`

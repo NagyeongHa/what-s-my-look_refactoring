@@ -7,4 +7,5 @@ export interface ILook {
   style: string;
   regdate: Date;
   moddate: Date;
+  profileimage?: string;
 }

@@ -1,5 +1,5 @@
-import React from 'react';
+import { ReactNode } from 'react';
 export type TModalProps = {
-  children?: React.ReactNode;
+  children?: ReactNode;
   setOnModal?: (state: boolean) => void;
 };

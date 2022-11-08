@@ -155,7 +155,7 @@ const Look = () => {
   };
 
   return (
-    <div>
+    <>
       <StyleFilter selectStyleHandler={selectStyle} />
       <LookContainer>
         {lookData.map((item) => (
@@ -164,7 +164,7 @@ const Look = () => {
           </LookCard>
         ))}
       </LookContainer>
-    </div>
+    </>
   );
 };
 
@@ -174,8 +174,7 @@ const LookContainer = styled.div`
   justify-content: center;
 
   @media ${theme.device.desktop} {
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     align-items: center;
     justify-content: start;
     width: 1500px;

@@ -12,10 +12,10 @@ const ModalLayout = ({ children, setOnModal }: TModalProps) => {
 
   return (
     <ModalPortal>
-      <OverLay onClick={handleModal}>
+      <OverLay>
         <ModalTheme>
           <button onClick={handleModal}>
-            <GoX size='1.3rem' color='gray' />
+            <GoX size='1.3rem' color='white' />
           </button>
           {children}
         </ModalTheme>
@@ -43,14 +43,14 @@ const ModalTheme = styled.div`
   z-index: 999;
   width: auto;
   height: auto;
-  padding: 2rem;
   background-color: #fff;
   box-shadow: rgb(0 0 0 / 20%) 0px 0px 25px 13px;
 
   button {
+    position: absolute;
     background: none;
     border: none;
-    color: red;
+    padding: 0.5rem;
     cursor: pointer;
   }
 `;

@@ -21,6 +21,8 @@ const LookItem = ({ post }: LookProp) => {
     setOnModal(bool);
   };
 
+  console.log(onModal);
+
   return (
     <>
       <div onClick={handleModal}>
