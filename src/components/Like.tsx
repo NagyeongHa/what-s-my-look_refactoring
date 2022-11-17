@@ -280,8 +280,7 @@ const Like = ({ post_id }: Pick<ILook, 'post_id'>) => {
 };
 const LikeWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  flex-flow: row nowrap;
   align-items: center;
   justify-content: start;
 

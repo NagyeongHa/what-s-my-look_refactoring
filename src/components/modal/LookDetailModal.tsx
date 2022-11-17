@@ -4,6 +4,7 @@ import theme from '../../styles/theme';
 import { ILook } from '../../types/ILookProperty';
 import { TModalProps } from '../../types/TModalProps';
 import { defaultApi } from '../../utils/apiInstance';
+import Like from '../Like';
 import ModalLayout from './ModalLayout';
 
 interface LookDetailModalProp extends TModalProps {
@@ -26,34 +27,27 @@ const LookDetailModal = ({ setOnModal, post_id }: LookDetailModalProp) => {
   }, [post_id]);
 
   return (
-    <>
-      <ModalLayout setOnModal={setOnModal}>
-        {lookData.map((item) => (
-          <ModalWrapper key={post_id}>
-            <img src={item.imagepath} alt='' />
-            <Content>
-              <div>
-                <img src={item.profileimage} alt='' />
-                <b>{item.sns_id}</b>
-              </div>
-              <hr />
-              <span>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
-                mollitia ab quos aperiam earum cupiditate ullam. Nam, recusandae
-                dolorum earum natus numquam dolores et rem officia quibusdam
-                eos. Reprehenderit, quibusdam!
-              </span>
-              <span>{sliceDate}</span>
-              <div>
-                <span>{item.temperature}℃</span>
-                <span>{item.style}</span>
-              </div>
-            </Content>
-          </ModalWrapper>
-        ))}
-      </ModalLayout>
-      ;
-    </>
+    <ModalLayout setOnModal={setOnModal}>
+      {lookData.map((item) => (
+        <ModalWrapper key={post_id}>
+          <img src={item.imagepath} alt='' />
+          <Content>
+            <div>
+              <img src={item.profileimage} alt='' />
+              <b>{item.sns_id}</b>
+            </div>
+            <hr />
+            <Like post_id={post_id} />
+            <div>{item.content}</div>
+            <div>{sliceDate}</div>
+            <StyleTag>
+              <span>{item.temperature}℃</span>
+              <span>{item.style}</span>
+            </StyleTag>
+          </Content>
+        </ModalWrapper>
+      ))}
+    </ModalLayout>
   );
 };
 
@@ -65,7 +59,7 @@ const ModalWrapper = styled.div`
   justify-content: center;
 
   img {
-    height: 37rem;
+    height: 40rem;
     border-radius: 0.7rem 0 0 0.7rem;
   }
 `;
@@ -82,8 +76,9 @@ const Content = styled.div`
     border-radius: 50%;
     padding: 0.3rem;
   }
-  & > div {
-    margin: 1rem;
+
+  & > div:not(:nth-child(3n)) {
+    margin: 0.6rem 1rem;
   }
 
   & > div:first-child {
@@ -91,28 +86,40 @@ const Content = styled.div`
     align-items: center;
     margin: 0.7rem;
   }
-  & > div:last-child > span {
-    background-color: #979595;
-    color: white;
-    margin-right: 0.5rem;
-    border-radius: 1.5rem;
-    padding: 0.5rem 0.8rem;
+
+  & > div:nth-child(3) {
+    margin: 1rem 1rem 0rem 0.7rem;
   }
 
-  & > span {
-    margin: 1.3rem 1rem;
+  & > div:nth-child(4) {
+    line-height: 1.6rem;
+    font-size: 1rem;
+    word-break: keep-all;
   }
 
-  & > span:first-child {
-    line-height: 1.4rem;
-    color: red;
+  & > div:nth-child(5) {
+    color: #a4a4a4;
+    font-size: 0.8rem;
   }
+
   & > b {
     margin: 0.4rem 1rem;
     font-weight: bold;
   }
-  & > span:last-child {
+`;
+
+const StyleTag = styled.div`
+  margin: 0.7rem 0.8rem;
+
+  span {
+    background-color: white;
     color: gray;
+    margin-right: 0.8rem;
+    border: 1px solid gray;
+    border-radius: 1.5rem;
+    padding: 0.25rem 1rem;
+    font-size: 0.9rem;
+    cursor: default;
   }
 `;
 export default LookDetailModal;

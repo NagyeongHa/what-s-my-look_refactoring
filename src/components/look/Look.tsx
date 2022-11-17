@@ -135,7 +135,7 @@ import { ILook } from '../../types/ILookProperty';
 import { defaultApi } from '../../utils/apiInstance';
 import LookItem from './LookItem';
 import StyleFilter from '../StyleFilter';
-
+import { RiTShirtAirLine } from 'react-icons/ri';
 const Look = () => {
   const [lookData, setLookData] = useState<ILook[]>([]);
   const [style, setStyle] = useState('');
@@ -145,7 +145,8 @@ const Look = () => {
 
   useEffect(() => {
     defaultApi
-      .get(`/post/image?temperature=${roundTemperature}&style=${style}`)
+      .get(`/post/image?temperature=8&style=${style}`)
+      // .get(`/post/image?temperature=${roundTemperature}&style=${style}`)
       .then((res) => setLookData(res.data))
       .catch((err) => console.log(err));
   }, [roundTemperature, style]);
@@ -157,13 +158,21 @@ const Look = () => {
   return (
     <>
       <StyleFilter selectStyleHandler={selectStyle} />
-      <LookContainer>
-        {lookData.map((item) => (
-          <LookCard key={item.post_id}>
-            <LookItem post={item} />
-          </LookCard>
-        ))}
-      </LookContainer>
+      {lookData.length ? (
+        <LookContainer>
+          {lookData.length &&
+            lookData.map((item) => (
+              <LookCard key={item.post_id}>
+                <LookItem post={item} />
+              </LookCard>
+            ))}
+        </LookContainer>
+      ) : (
+        <EmptyContents>
+          <RiTShirtAirLine size='4rem' color='#b1b1b1' />
+          준비중 입니다.
+        </EmptyContents>
+      )}
     </>
   );
 };
@@ -195,5 +204,14 @@ const LookCard = styled.div`
     padding: 1.3rem 1.8rem;
     margin: 0 0.5rem;
   }
+`;
+
+const EmptyContents = styled.div`
+  font-family: ${theme.font.thin};
+  margin: 9rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 export default Look;

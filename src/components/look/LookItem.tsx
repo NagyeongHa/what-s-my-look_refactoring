@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { isBrowser } from 'react-device-detect';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import { ILook } from '../../types/ILookProperty';
@@ -14,7 +15,9 @@ const LookItem = ({ post }: LookProp) => {
   const { imagepath, content, sns_id, post_id } = post;
 
   const handleModal = () => {
-    setOnModal(true);
+    if (isBrowser) {
+      return setOnModal(true);
+    }
   };
 
   const handleOnModalProp = (bool: boolean) => {
@@ -30,9 +33,7 @@ const LookItem = ({ post }: LookProp) => {
         <Like post_id={post.post_id} />
         <Content>
           <span>{sns_id}</span>
-          {content}어쩌고 저꺼고 어어어어라 두줄이 필요해 어쩌꼬 랄랄루랄어쩌고
-          저꺼고 어어어어라 두줄이 필요해 어쩌꼬 랄랄루랄 호이호이 랄랄루랄
-          호이호이
+          {content}
         </Content>
       </div>
       {onModal && (
@@ -50,16 +51,22 @@ const Img = styled.img`
   @media ${theme.device.desktop} {
     height: 30rem;
     object-fit: cover;
+    border-radius: 0.2rem;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.03);
+      -webkit-transform: scale(1.03);
+      -moz-transform: scale(1.03);
+      -ms-transform: scale(1.03);
+      -o-transform: scale(1.03);
+    }
   }
 `;
 
 const Content = styled.div`
   overflow: hidden;
   white-space: normal;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   word-break: keep-all;
   padding: 0.3rem;
   padding-bottom: 0;
@@ -79,6 +86,10 @@ const Content = styled.div`
     margin: 0;
     line-height: 1.6rem;
     word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 `;
 export default LookItem;
