@@ -223,11 +223,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { ILook } from '../types/ILookProperty';
-import { defaultApi } from '../utils/apiInstance';
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs';
 import styled from 'styled-components';
 import { ILike } from '../types/ILikeProperty';
 import theme from '../styles/theme';
+import { defaultApi } from '../service/api';
 
 const Like = ({ post_id }: Pick<ILook, 'post_id'>) => {
   const [isClick, setIsClick] = useState(false);

@@ -48,6 +48,9 @@ const Header = () => {
           ) : (
             <>
               <CustomButton onClick={handleModal}>Login</CustomButton>
+              <CustomButton>
+                <Link to='/liked'>My page</Link>
+              </CustomButton>
               {onModal && <LoginModal setOnModal={handleOnModalProp} />}
             </>
           )}

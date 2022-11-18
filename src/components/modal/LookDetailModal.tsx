@@ -1,48 +1,41 @@
-import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import { ILook } from '../../types/ILookProperty';
 import { TModalProps } from '../../types/TModalProps';
-import { defaultApi } from '../../utils/apiInstance';
 import Like from '../Like';
 import ModalLayout from './ModalLayout';
+import { useQuery } from 'react-query';
+import { getLookDetail } from '../../service/api';
 
 interface LookDetailModalProp extends TModalProps {
   post_id: number;
 }
 
 const LookDetailModal = ({ setOnModal, post_id }: LookDetailModalProp) => {
-  const [lookData, setLookData] = useState<ILook[]>([]);
-  const [date, setDate] = useState('');
-  const sliceDate = date.substring(0, 10);
+  const { data } = useQuery<ILook[]>({
+    queryKey: ['getLooks', post_id],
+    queryFn: () => getLookDetail(post_id),
+  });
 
-  useEffect(() => {
-    defaultApi
-      .get(`/post/${post_id}`)
-      .then((res) => {
-        setLookData(res.data);
-        setDate(res.data[0].moddate);
-      })
-      .catch((err) => console.log(err));
-  }, [post_id]);
+  const date = data?.map((post) => post.moddate.substring(0, 10));
 
   return (
     <ModalLayout setOnModal={setOnModal}>
-      {lookData.map((item) => (
+      {data?.map((post) => (
         <ModalWrapper key={post_id}>
-          <img src={item.imagepath} alt='' />
+          <img src={post.imagepath} alt='' />
           <Content>
             <div>
-              <img src={item.profileimage} alt='' />
-              <b>{item.sns_id}</b>
+              <img src={post.profileimage} alt='' />
+              <b>{post.sns_id}</b>
             </div>
             <hr />
             <Like post_id={post_id} />
-            <div>{item.content}</div>
-            <div>{sliceDate}</div>
+            <div>{post.content}</div>
+            <div>{date}</div>
             <StyleTag>
-              <span>{item.temperature}℃</span>
-              <span>{item.style}</span>
+              <span>{post.temperature}℃</span>
+              <span>{post.style}</span>
             </StyleTag>
           </Content>
         </ModalWrapper>
@@ -83,7 +76,7 @@ const Content = styled.div`
 
   & > div:first-child {
     display: flex;
-    align-items: center;
+    align-posts: center;
     margin: 0.7rem;
   }
 

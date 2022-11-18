@@ -126,30 +126,27 @@
 
 // export default Look;
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { weatherState } from '../../recoil/weatherState';
 import theme from '../../styles/theme';
 import { ILook } from '../../types/ILookProperty';
-import { defaultApi } from '../../utils/apiInstance';
 import LookItem from './LookItem';
 import StyleFilter from '../StyleFilter';
 import { RiTShirtAirLine } from 'react-icons/ri';
-const Look = () => {
-  const [lookData, setLookData] = useState<ILook[]>([]);
-  const [style, setStyle] = useState('');
-  const temperature = useRecoilValue(weatherState);
-  const roundTemperature = Math.round(temperature.temp);
-  console.log(lookData);
+import { useQuery } from 'react-query';
+import { getLooks } from '../../service/api';
 
-  useEffect(() => {
-    defaultApi
-      .get(`/post/image?temperature=8&style=${style}`)
-      // .get(`/post/image?temperature=${roundTemperature}&style=${style}`)
-      .then((res) => setLookData(res.data))
-      .catch((err) => console.log(err));
-  }, [roundTemperature, style]);
+const Look = () => {
+  const [style, setStyle] = useState('');
+  const defaultTemperature = useRecoilValue(weatherState);
+  const temperature = Math.round(defaultTemperature.temp);
+
+  const { data } = useQuery<ILook[]>({
+    queryKey: ['getLooks', temperature, style],
+    queryFn: () => getLooks(temperature, style),
+  });
 
   const selectStyle = (styleState: string) => {
     setStyle(styleState);
@@ -158,14 +155,13 @@ const Look = () => {
   return (
     <>
       <StyleFilter selectStyleHandler={selectStyle} />
-      {lookData.length ? (
+      {data?.length ? (
         <LookContainer>
-          {lookData.length &&
-            lookData.map((item) => (
-              <LookCard key={item.post_id}>
-                <LookItem post={item} />
-              </LookCard>
-            ))}
+          {data.map((item) => (
+            <LookCard key={item.post_id}>
+              <LookItem post={item} />
+            </LookCard>
+          ))}
         </LookContainer>
       ) : (
         <EmptyContents>

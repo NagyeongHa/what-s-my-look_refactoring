@@ -5,7 +5,7 @@ export interface ILook {
   imagepath: string;
   temperature: number;
   style: string;
-  regdate: Date;
-  moddate: Date;
+  regdate: string;
+  moddate: string;
   profileimage?: string;
 }
