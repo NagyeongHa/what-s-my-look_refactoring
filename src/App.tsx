@@ -1,28 +1,19 @@
-import { RecoilRoot } from 'recoil';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-import Loading from './components/Loading';
-import Liked from './pages/Liked';
-import GlobalStyles from './styles/GlobalStyles';
-import { QueryClientProvider, QueryClient } from 'react-query';
+import Liked from './pages/Mypage';
+import OAuthRedirect from './components/OAuthRedirect';
+import useRefreshToken from './hooks/useRefreshToken';
 
-const queryClient = new QueryClient();
 const App = () => {
+  //페이지리로드 시 silent-refresh
+  useRefreshToken();
+
   return (
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <RecoilRoot>
-          <Suspense fallback={<Loading />}>
-            <GlobalStyles />
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/liked' element={<Liked />} />
-            </Routes>
-          </Suspense>
-        </RecoilRoot>
-      </QueryClientProvider>
-    </BrowserRouter>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/my' element={<Liked />} />
+      <Route path='/oauth/:company/callback' element={<OAuthRedirect />} />
+    </Routes>
   );
 };
 

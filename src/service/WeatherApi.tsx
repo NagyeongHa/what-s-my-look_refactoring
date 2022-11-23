@@ -3,6 +3,7 @@ import { TWeatherProps } from '../types/TWeatherProps';
 import { useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { defaultApi } from './apiInstance';
 
 function WeatherApi() {
   const setWeather = useSetRecoilState<TWeatherProps>(weatherState);
@@ -14,7 +15,7 @@ function WeatherApi() {
       const lon = position.coords.longitude;
 
       const weatherApiCall = async () => {
-        const response = await axios.get(
+        const response = await defaultApi.get(
           `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
         );
         return response.data;

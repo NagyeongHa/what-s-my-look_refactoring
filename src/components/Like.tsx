@@ -227,36 +227,48 @@ import { BsFillHeartFill, BsHeart } from 'react-icons/bs';
 import styled from 'styled-components';
 import { ILike } from '../types/ILikeProperty';
 import theme from '../styles/theme';
-import { defaultApi } from '../service/api';
+import { authApi, defaultApi } from '../service/apiInstance';
+import { useRecoilValue } from 'recoil';
+import { authedUserState } from '../recoil/authedUserState';
 
 const Like = ({ post_id }: Pick<ILook, 'post_id'>) => {
   const [isClick, setIsClick] = useState(false);
   const [likes, setLikes] = useState<ILike>({ total: 0, alreadyLiked: false });
-  const sns_id = 'admin';
+  const { sns_id } = useRecoilValue(authedUserState);
+
+  // const sns_id = 'admi';
 
   useEffect(() => {
-    defaultApi
-      .get(`/like/check/${post_id}/${sns_id}`)
-      .then((res) => setLikes(res.data))
-      .catch((err) => console.log(err));
-  }, [post_id, isClick]);
+    if (sns_id)
+      defaultApi
+        .get(`/like/check/${post_id}/${sns_id}`)
+        .then((res) => setLikes(res.data))
+        .catch((err) => console.log(err));
+  }, [post_id, isClick, sns_id]);
 
   const upLikeHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    await defaultApi.post('/like', { post_id, sns_id });
+    const { data } = await authApi.post('/like', { post_id, sns_id });
+    errorAlert(data.message);
     setIsClick(!isClick);
   };
 
   const unLikeHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    await defaultApi.delete('/like', {
+    const { data } = await authApi.delete('/like', {
       data: {
         post_id,
         sns_id,
       },
     });
-
+    errorAlert(data.message);
     setIsClick(!isClick);
+  };
+
+  const errorAlert = (message: string) => {
+    if (message === 'sns_id is not valid') {
+      return alert('아이디가 올바르지 않습니다. 다시 로그인해주세요.');
+    }
   };
 
   return (

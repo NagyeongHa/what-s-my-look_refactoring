@@ -76,7 +76,7 @@ const Content = styled.div`
 
   & > div:first-child {
     display: flex;
-    align-posts: center;
+    align-items: center;
     margin: 0.7rem;
   }
 

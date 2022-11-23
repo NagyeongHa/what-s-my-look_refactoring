@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import { TModalProps } from '../../types/TModalProps';
 import { GoX } from 'react-icons/go';
 import { useEffect, useRef } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { LoginModalState } from '../../recoil/LoginModalState';
 
 const ModalLayout = ({ children, setOnModal }: TModalProps) => {
+  // const LoginSetOnModal = useSetRecoilState(LoginModalState);
   const modalRef = useRef(null);
   const handleClose = () => {
     setOnModal(false);

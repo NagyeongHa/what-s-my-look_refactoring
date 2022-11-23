@@ -97,9 +97,18 @@
 // export default Liked;
 
 import React from 'react';
+import Header from '../components/Header';
+import MyLiked from '../components/mypage/MyLikesList';
+import Profile from '../components/mypage/Profile';
 
 const Liked = () => {
-  return <div></div>;
+  return (
+    <div>
+      <Header />
+      <Profile />
+      <MyLiked />
+    </div>
+  );
 };
 
 export default Liked;

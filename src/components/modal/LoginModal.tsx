@@ -1,9 +1,29 @@
 import React from 'react';
+import styled from 'styled-components';
 import { TModalProps } from '../../types/TModalProps';
 import ModalLayout from './ModalLayout';
+import kakaoLogo from '../../assets/icon/kakao_login.png';
+import googleLogo from '../../assets/icon/google_login.png';
+import naverLogo from '../../assets/icon/naver_login.png';
 
 const LoginModal = ({ setOnModal }: TModalProps) => {
-  return <ModalLayout setOnModal={setOnModal}>로그인 모달입니다</ModalLayout>;
+  return (
+    <ModalLayout setOnModal={setOnModal}>
+      <a href='http://localhost:8080/oauth/kakao'>
+        {/* <a href='http://whatsmylookbackend.duckdns.org:8080/oauth/kakao'> */}
+        <SnsButtonImg src={kakaoLogo} alt='KaKaoLogin' />
+      </a>
+      <a href='http://whatsmylookbackend.duckdns.org:8080/oauth/google'>
+        <SnsButtonImg src={googleLogo} alt='googleLogin' />
+      </a>
+      <a href='http://whatsmylookbackend.duckdns.org:8080/oauth/naver'>
+        <SnsButtonImg src={naverLogo} alt='NaverLogin' />
+      </a>
+    </ModalLayout>
+  );
 };
+const SnsButtonImg = styled.img`
+  margin: 0.8rem auto;
+`;
 
 export default LoginModal;
