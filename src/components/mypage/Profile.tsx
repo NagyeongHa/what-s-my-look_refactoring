@@ -7,7 +7,7 @@ const Profile = () => {
 
   return (
     <ProfileWrapper>
-      <img src={profileimage} alt='' />
+      <Img src={profileimage} alt='' />
       <p>
         <b>{name}</b>님 반갑습니다
       </p>
@@ -26,11 +26,11 @@ export const ProfileWrapper = styled.div`
   margin: 6rem auto 1rem auto;
   text-align: center;
   padding: 2rem;
+`;
 
-  img {
-    width: 3rem;
-    border-radius: 50%;
-  }
+export const Img = styled.img`
+  width: 3rem;
+  border-radius: 50%;
 `;
 
 export default Profile;

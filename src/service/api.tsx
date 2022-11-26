@@ -12,10 +12,6 @@ export const getLookDetail = async (post_id: number) => {
   return data;
 };
 
-// export const getMyLikesList =async (params:type) => {
-//   const {data} =
-// }
-
 export const Login = async (company: string, code: string, state: string) => {
   const { data } = await defaultApi.post(
     `/oauth/${company}/callback`,
@@ -38,3 +34,31 @@ export const silentRefreshToken = async () => {
 // export const logout = async ()=> {
 //   const
 // }
+
+export const getUserAlreadyLiked = async (
+  post_id: number,
+  sns_id: string | number
+) => {
+  const { data } = await defaultApi.get(`/like/check/${post_id}/${sns_id}`);
+  return data;
+};
+
+export const upLike = async (newLike: Like) => {
+  const { data } = await authApi.post('/like', newLike);
+  return data;
+};
+
+interface Like {
+  post_id: number;
+  sns_id: string | number;
+}
+
+export const unLike = async (like: Like) => {
+  const { data } = await authApi.delete('/like', { data: like });
+  return data;
+};
+
+export const getMyLikesList = async (sns_id: string | number) => {
+  const { data } = await authApi.get(`/like/${sns_id}`);
+  return data;
+};

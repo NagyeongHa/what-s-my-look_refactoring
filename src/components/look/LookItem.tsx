@@ -6,13 +6,13 @@ import { ILook } from '../../types/ILookProperty';
 import Like from '../Like';
 import LookDetailModal from '../modal/LookDetailModal';
 
-interface LookProp {
+export interface LookProp {
   post: ILook;
 }
 
 const LookItem = ({ post }: LookProp) => {
   const [onModal, setOnModal] = useState(false);
-  const { imagepath, content, sns_id, post_id } = post;
+  const { imagepath, content, sns_id, post_id, profileimage } = post;
 
   const handleModal = () => {
     if (isBrowser) {
@@ -23,6 +23,7 @@ const LookItem = ({ post }: LookProp) => {
   const handleOnModalProp = (bool: boolean) => {
     setOnModal(bool);
   };
+  console.log(post);
 
   return (
     <>
@@ -30,6 +31,9 @@ const LookItem = ({ post }: LookProp) => {
         <Img src={imagepath} alt='' />
         <Like post_id={post.post_id} />
         <Content>
+          <span>
+            <img src={profileimage} alt='' />
+          </span>
           <span>{sns_id}</span>
           {content}
         </Content>

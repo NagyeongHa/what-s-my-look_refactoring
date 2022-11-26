@@ -16,6 +16,7 @@ const LookDetailModal = ({ setOnModal, post_id }: LookDetailModalProp) => {
     queryKey: ['getLooks', post_id],
     queryFn: () => getLookDetail(post_id),
   });
+  console.log(post_id);
 
   const date = data?.map((post) => post.moddate.substring(0, 10));
 
