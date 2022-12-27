@@ -2,7 +2,6 @@ import { weatherState } from '../recoil/weatherState';
 import { TWeatherProps } from '../types/TWeatherProps';
 import { useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
-import axios from 'axios';
 import { defaultApi } from './apiInstance';
 
 function WeatherApi() {

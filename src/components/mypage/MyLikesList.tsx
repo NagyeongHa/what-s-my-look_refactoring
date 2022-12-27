@@ -6,13 +6,10 @@ import { authedUserState } from '../../recoil/authedUserState';
 import { getMyLikesList } from '../../service/api';
 import { ProfileWrapper } from './Profile';
 import { ILook } from '../../types/ILookProperty';
-import LookDetailModal from '../modal/LookDetailModal';
-import { isBrowser } from 'react-device-detect';
-import { useState } from 'react';
 import MyLikesItem from './MyLikesItem';
+import theme from '../../styles/theme';
 
 const MyLikesList = () => {
-  const [onModal, setOnModal] = useState(false);
   const { sns_id } = useRecoilValue(authedUserState);
 
   const { data } = useQuery<ILook[]>({
@@ -21,21 +18,6 @@ const MyLikesList = () => {
     enabled: !!sns_id,
   });
 
-  const handleModal = (e: React.MouseEventHandler<HTMLDivElement>) => {
-    if (isBrowser) {
-      return setOnModal(true);
-    }
-    console.log(e);
-  };
-
-  const handleOnModalProp = (bool: boolean) => {
-    setOnModal(bool);
-  };
-
-  // const sendPostIdToModal = (e: React.MouseEventHandler<HTMLImageElement>) => {
-  //   // console.log(post_id);
-  //   console.log(e);
-  // };
   return (
     <LikesListWrapper>
       좋아요한 게시글 ({data?.length})
@@ -52,14 +34,25 @@ const LikesListWrapper = styled(ProfileWrapper)`
   text-align: start;
   height: auto;
   margin-top: 3rem;
-  padding: 0.3rem;
+  width: 95vw;
+  padding: 0;
 
   & > div {
     text-align: center;
     display: flex;
     flex-flow: row wrap;
     align-items: center;
-    padding: 0.8rem;
+    margin: 0 auto;
+    width: auto;
+  }
+
+  @media ${theme.device.desktop} {
+    width: 70vw;
+    padding: 0.3rem;
+
+    & > div {
+      padding: 0.8rem;
+    }
   }
 `;
 

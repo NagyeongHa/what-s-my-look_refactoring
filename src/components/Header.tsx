@@ -1,6 +1,5 @@
 import logo from '../assets/icon/logo.svg';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { authState } from '../recoil/authState';
 import '../styles/Modal.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';

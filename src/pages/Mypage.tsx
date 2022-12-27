@@ -98,7 +98,7 @@
 
 import React from 'react';
 import Header from '../components/Header';
-import MyLiked from '../components/mypage/MyLikesList';
+import MyLikesList from '../components/mypage/MyLikesList';
 import Profile from '../components/mypage/Profile';
 
 const Liked = () => {
@@ -106,7 +106,7 @@ const Liked = () => {
     <div>
       <Header />
       <Profile />
-      <MyLiked />
+      <MyLikesList />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { authedUserState } from '../../recoil/authedUserState';
+import theme from '../../styles/theme';
 
 const Profile = () => {
   const { name, profileimage } = useRecoilValue(authedUserState);
@@ -21,11 +22,15 @@ export const ProfileWrapper = styled.div`
   /* background-color: pink; */
   border: 1px solid lightgray;
   border-radius: 0.7rem;
-  width: 70vw;
   height: auto;
   margin: 6rem auto 1rem auto;
   text-align: center;
   padding: 2rem;
+  width: 95vw;
+
+  @media ${theme.device.desktop} {
+    width: 70vw;
+  }
 `;
 
 export const Img = styled.img`

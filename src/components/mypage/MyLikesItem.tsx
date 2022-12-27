@@ -1,19 +1,28 @@
 import { useState } from 'react';
 import { isBrowser } from 'react-device-detect';
 import styled from 'styled-components';
-import { LookProp } from '../look/LookItem';
+import theme from '../../styles/theme';
+import Like from '../Like';
+import { Content, LookImg, LookProp } from '../look/LookItem';
 import LookDetailModal from '../modal/LookDetailModal';
 
 const MyLikesItem = ({ post }: LookProp) => {
   const [onModal, setOnModal] = useState(false);
-  const { imagepath, post_id, style, temperature } = post;
+  const {
+    profileimage,
+    imagepath,
+    post_id,
+    sns_id,
+    style,
+    temperature,
+    content,
+  } = post;
 
   const handleModal = () => {
     if (isBrowser) {
       return setOnModal(true);
     }
   };
-  console.log(onModal);
 
   const handleOnModalProp = (bool: boolean) => {
     setOnModal(bool);
@@ -25,6 +34,28 @@ const MyLikesItem = ({ post }: LookProp) => {
       <ImgInfo>
         {temperature}℃ / {style}
       </ImgInfo>
+
+      {/* {isBrowser ? (
+        <>
+          <Img src={imagepath} />
+          <ImgInfo>
+            {temperature}℃ / {style}
+          </ImgInfo>
+        </>
+      ) : (
+        <>
+          <LookImg src={imagepath} alt='' />
+          <Like post_id={post_id} />
+          <Content>
+            <span>
+              <img src={profileimage} alt='' />
+            </span>
+            <span>{sns_id}</span>
+            {content}
+          </Content>
+        </>
+      )} */}
+
       {onModal && (
         <LookDetailModal setOnModal={handleOnModalProp} post_id={post_id} />
       )}
@@ -34,10 +65,22 @@ const MyLikesItem = ({ post }: LookProp) => {
 
 const LikeItemWrapper = styled.div`
   position: relative;
-  width: 15rem;
-  height: 15rem;
-  margin: 0.6rem;
   cursor: pointer;
+  margin: 0.29rem;
+  flex: 1 1 30%;
+  height: 24vh;
+  /* width: 13rem; */
+
+  /* &:nth-last-child(-n + 3) {
+    flex: 0 1 31%;
+  } */
+
+  @media ${theme.device.desktop} {
+    margin: 0.6rem;
+    flex: auto;
+    width: 15rem;
+    height: 24rem;
+  }
 `;
 
 const Img = styled.img`

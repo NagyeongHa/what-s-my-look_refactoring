@@ -221,7 +221,7 @@
 
 // export default Like;
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { ILook } from '../types/ILookProperty';
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs';
 import styled from 'styled-components';

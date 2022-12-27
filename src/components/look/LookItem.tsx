@@ -23,13 +23,12 @@ const LookItem = ({ post }: LookProp) => {
   const handleOnModalProp = (bool: boolean) => {
     setOnModal(bool);
   };
-  console.log(post);
 
   return (
     <>
       <div onClick={handleModal}>
-        <Img src={imagepath} alt='' />
-        <Like post_id={post.post_id} />
+        <LookImg src={imagepath} alt='' />
+        <Like post_id={post_id} />
         <Content>
           <span>
             <img src={profileimage} alt='' />
@@ -45,7 +44,7 @@ const LookItem = ({ post }: LookProp) => {
   );
 };
 
-const Img = styled.img`
+export const LookImg = styled.img`
   object-fit: cover;
   width: 100%;
   margin: 0.4rem 0;
@@ -66,7 +65,7 @@ const Img = styled.img`
   }
 `;
 
-const Content = styled.div`
+export const Content = styled.div`
   overflow: hidden;
   white-space: normal;
   word-break: keep-all;
