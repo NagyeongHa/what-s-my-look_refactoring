@@ -21,13 +21,13 @@ const useRefreshToken = () => {
     },
   });
 
-  useEffect(() => {
-    if (query.isError) {
-      if (confirm('로그인이 만료되었습니다. 다시 로그인해주세요.')) {
-        loginSetOnModal(true);
-      }
-    }
-  }, [query.isError]);
+  // useEffect(() => {
+  //   if (query.isError) {
+  //     if (confirm('로그인이 만료되었습니다. 다시 로그인해주세요.')) {
+  //       loginSetOnModal(true);
+  //     }
+  //   }
+  // }, [query.isError]);
 
   return query;
 };

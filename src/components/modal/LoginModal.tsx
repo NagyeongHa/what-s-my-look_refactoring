@@ -9,6 +9,7 @@ import naverLogo from '../../assets/icon/naver_login.png';
 const LoginModal = ({ setOnModal }: TModalProps) => {
   return (
     <ModalLayout setOnModal={setOnModal}>
+      {/* <a href='http://localhost:8080/oauth/kakao'> */}
       <a href='https://whatsmylookbackend.duckdns.org/oauth/kakao'>
         <SnsButtonImg src={kakaoLogo} alt='KaKaoLogin' />
       </a>
