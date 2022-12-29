@@ -8,7 +8,7 @@
 
 ☀️ 날씨와 기온에 맞게 룩을 추천해드립니다.
 
-[기온별 옷 추천받기](https://what-s-my-look.web.app)
+[기온별 옷 추천받기](https://what-s-my-look-refactoring.vercel.app/)
 
 <br>
 <hr>
@@ -35,8 +35,6 @@ react-router(6.3.4)
 
 Recoil(0.7.3),
 Recoil-Persist(4.2.0)
-
-firebase(9.8.1)
 
 lodash(4.5.0)
 
