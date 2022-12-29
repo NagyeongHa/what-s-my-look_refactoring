@@ -257,7 +257,7 @@ const Like = ({ post_id }: Pick<ILook, 'post_id'>) => {
 
   useEffect(() => {
     if (upLikeMutation.data?.message === 'sns_id is not valid') {
-      alert('아이디가 올바르지 않습니다. 다시 로그인 해주세요.');
+      alert('로그인 후 이용가능합니다.');
     }
   }, [upLikeMutation.data]);
 

@@ -1,6 +1,14 @@
 import { authApi, defaultApi } from './apiInstance';
 
 export const getLooks = async (temperature: number, style: string) => {
+  if (temperature < 0) {
+    return (temperature = 0);
+  }
+
+  if (temperature > 27) {
+    return (temperature = 27);
+  }
+
   const { data } = await defaultApi.get(
     `/post/image?temperature=${temperature}&style=${style}`
   );
@@ -31,9 +39,9 @@ export const silentRefreshToken = async () => {
   return data;
 };
 
-// export const logout = async ()=> {
-//   const
-// }
+export const logout = async () => {
+  return await authApi.post('/oauth/logout', { withCredentials: true });
+};
 
 export const getUserAlreadyLiked = async (
   post_id: number,
@@ -50,7 +58,7 @@ export const upLike = async (newLike: Like) => {
 
 interface Like {
   post_id: number;
-  sns_id: string | number;
+  sns_id: string;
 }
 
 export const unLike = async (like: Like) => {

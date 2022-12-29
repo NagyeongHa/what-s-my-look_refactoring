@@ -1,27 +1,29 @@
 import logo from '../assets/icon/logo.svg';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import '../styles/Modal.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
-import { auth } from './firebase';
 import styled from 'styled-components';
 import LoginModal from './modal/LoginModal';
 import { LoginModalState } from '../recoil/LoginModalState';
 import { authedUserState } from '../recoil/authedUserState';
+import { logout } from '../service/api';
 
 const Header = () => {
   const [onModal, setOnModal] = useRecoilState(LoginModalState);
-  const { name } = useRecoilValue(authedUserState);
+  const { name, authenticated } = useRecoilValue(authedUserState);
+  const resetUserInfo = useResetRecoilState(authedUserState);
   const navigate = useNavigate();
 
-  const logout = () => {
-    signOut(auth).then(() => alert('logout!'));
-    localStorage.removeItem('recoil-persist');
-    window.location.reload();
+  const handleLogout = async () => {
+    await logout();
+    resetUserInfo();
   };
 
   const toLiked = () => {
-    navigate('/my');
+    if (authenticated) {
+      return navigate('/my');
+    }
+    return alert('로그인 후 이용가능합니다.');
   };
 
   const handleModal = () => {
@@ -39,18 +41,16 @@ const Header = () => {
       </Link>
 
       <CustomButtonGroup>
-        {name ? (
+        {authenticated ? (
           <>
             {name}
-            <CustomButton onClick={logout}>Logout</CustomButton>
+            <CustomButton onClick={handleLogout}>Logout</CustomButton>
             <CustomButton onClick={toLiked}>My</CustomButton>
           </>
         ) : (
           <>
             <CustomButton onClick={handleModal}>Login</CustomButton>
-            <CustomButton>
-              <Link to='/my'>My page</Link>
-            </CustomButton>
+            <CustomButton onClick={toLiked}>My page</CustomButton>
             {onModal && <LoginModal setOnModal={handleOnModalProp} />}
           </>
         )}

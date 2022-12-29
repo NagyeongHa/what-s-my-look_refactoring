@@ -14,39 +14,6 @@ const OAuthRedirect = () => {
   const code = params.get('code');
   const state = params?.get('state');
   const setUserInfoState = useSetRecoilState(authedUserState);
-  // const [userInfo, setUserInfoState] = useRecoilState(authedUserState);
-  // const { data, isError, error, isSuccess } = useQuery({
-  //   queryKey: ['socialLogin'],
-  //   queryFn: () => Login(company, code, state),
-  //   onSuccess: (data) => {
-  //     setUserInfoState(data.user);
-  //   },
-  //   onError: (error) => console.log(error),
-  // });
-
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     useRefreshToken;
-  //     navigate('/');
-  //   }
-  // }, [isSuccess]);
-
-  // console.log(user);
-
-  // useEffect(() => {
-  //   // if (isError) {
-  //   //   console.log('login error:', error);
-  //   //   return;
-  //   // }
-
-  //   if (isSuccess) {
-  //     const userInfo = data?.user;
-  //     setUserInfoState(userInfo);
-
-  //     navigate('/');
-  //     return;
-  //   }
-  // }, [data]);
 
   const result = useQueries([
     {
@@ -68,14 +35,10 @@ const OAuthRedirect = () => {
     }
 
     if (!isLoading) {
-      console.log(result);
-      console.log(result[0].data);
-      console.log(result[1].data);
-
       const userInfo = result[0].data.user;
       const accessToken = result[1].data.accessToken;
 
-      setUserInfoState(userInfo);
+      setUserInfoState({ ...userInfo, authenticated: true });
       applyAccessToken(accessToken);
 
       return userInfo.sns_id && navigate('/');
