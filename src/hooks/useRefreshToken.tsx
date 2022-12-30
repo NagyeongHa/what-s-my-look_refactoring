@@ -15,7 +15,6 @@ const useRefreshToken = () => {
     onSuccess: (data) => {
       const accessToken = data.accessToken;
       const userInfo = data.userInfo;
-      console.log('ㅎㅇ', data);
       setUserInfo({ ...userInfo, authenticated: true });
       applyAccessToken(accessToken);
     },

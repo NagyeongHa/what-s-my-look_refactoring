@@ -20,7 +20,7 @@ const MyLikesList = () => {
 
   return (
     <LikesListWrapper>
-      좋아요한 게시글 ({data?.length})
+      <p>좋아요한 게시글 ({data?.length})</p>
       <hr />
       <div>
         {data &&
@@ -36,6 +36,7 @@ const LikesListWrapper = styled(ProfileWrapper)`
   margin-top: 3rem;
   width: 95vw;
   padding: 0;
+  font-family: ${theme.font.thin};
 
   & > div {
     text-align: center;
@@ -53,6 +54,15 @@ const LikesListWrapper = styled(ProfileWrapper)`
     & > div {
       padding: 0.8rem;
     }
+  }
+
+  p {
+    padding-left: 0.4rem;
+    padding-bottom: 0.3rem;
+  }
+
+  hr {
+    margin-bottom: 0.2rem;
   }
 `;
 

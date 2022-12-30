@@ -6,6 +6,7 @@ import Like from '../Like';
 import ModalLayout from './ModalLayout';
 import { useQuery } from 'react-query';
 import { getLookDetail } from '../../service/api';
+import { isBrowser } from 'react-device-detect';
 
 interface LookDetailModalProp extends TModalProps {
   post_id: number;
@@ -16,7 +17,6 @@ const LookDetailModal = ({ setOnModal, post_id }: LookDetailModalProp) => {
     queryKey: ['getLooks', post_id],
     queryFn: () => getLookDetail(post_id),
   });
-  console.log(post_id);
 
   const date = data?.map((post) => post.moddate.substring(0, 10));
 
@@ -48,22 +48,30 @@ const LookDetailModal = ({ setOnModal, post_id }: LookDetailModalProp) => {
 const ModalWrapper = styled.div`
   display: flex;
   font-family: ${theme.font.thin};
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
 
-  img {
-    height: 40rem;
-    border-radius: 0.7rem 0 0 0.7rem;
+  & > img {
+    width: 16rem;
+    border-radius: 0.7rem 0.7rem 0 0;
+  }
+
+  @media ${theme.device.desktop} {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+
+    & > img {
+      height: 42rem;
+      border-radius: 0.7rem 0 0 0.7rem;
+    }
   }
 `;
 
 const Content = styled.div`
   display: flex;
   flex-flow: column;
-  width: 19rem;
   word-break: keep-all;
-
+  margin-bottom: 1rem;
   img {
     width: 2rem;
     height: auto;
@@ -71,18 +79,20 @@ const Content = styled.div`
     padding: 0.3rem;
   }
 
-  & > div:not(:nth-child(3n)) {
-    margin: 0.6rem 1rem;
-  }
-
+  //프로필 & sns_id
   & > div:first-child {
     display: flex;
     align-items: center;
-    margin: 0.7rem;
   }
 
+  //div 간격
+  & > div:not(:nth-child(3n)) {
+    margin: 0.4rem 0.7rem;
+  }
+
+  //좋아요
   & > div:nth-child(3) {
-    margin: 1rem 1rem 0rem 0.7rem;
+    margin: 0.5rem 0 0 0.4rem;
   }
 
   & > div:nth-child(4) {
@@ -99,6 +109,21 @@ const Content = styled.div`
   & > b {
     margin: 0.4rem 1rem;
     font-weight: bold;
+  }
+  @media ${theme.device.desktop} {
+    width: 19rem;
+
+    & > div:first-child {
+      margin: 0.7rem;
+    }
+
+    & > div:not(:nth-child(3n)) {
+      margin: 0.6rem 1rem;
+    }
+
+    & > div:nth-child(3) {
+      margin: 1rem 1rem 0rem 0.7rem;
+    }
   }
 `;
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { isBrowser } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import { ILook } from '../../types/ILookProperty';
@@ -15,9 +15,10 @@ const LookItem = ({ post }: LookProp) => {
   const { imagepath, content, sns_id, post_id, profileimage } = post;
 
   const handleModal = () => {
-    if (isBrowser) {
-      return setOnModal(true);
+    if (isMobile) {
+      return setOnModal(false);
     }
+    return setOnModal(true);
   };
 
   const handleOnModalProp = (bool: boolean) => {

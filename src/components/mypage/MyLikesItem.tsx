@@ -19,9 +19,7 @@ const MyLikesItem = ({ post }: LookProp) => {
   } = post;
 
   const handleModal = () => {
-    if (isBrowser) {
-      return setOnModal(true);
-    }
+    setOnModal(true);
   };
 
   const handleOnModalProp = (bool: boolean) => {

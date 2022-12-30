@@ -1,29 +1,24 @@
 import logo from '../assets/icon/logo.svg';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import '../styles/Modal.css';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginModal from './modal/LoginModal';
 import { LoginModalState } from '../recoil/LoginModalState';
 import { authedUserState } from '../recoil/authedUserState';
-import { logout } from '../service/api';
+import theme from '../styles/theme';
 
 const Header = () => {
   const [onModal, setOnModal] = useRecoilState(LoginModalState);
-  const { name, authenticated } = useRecoilValue(authedUserState);
-  const resetUserInfo = useResetRecoilState(authedUserState);
+  const { name, authenticated, profileimage } = useRecoilValue(authedUserState);
   const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    await logout();
-    resetUserInfo();
-  };
 
   const toLiked = () => {
     if (authenticated) {
       return navigate('/my');
     }
-    return alert('로그인 후 이용가능합니다.');
+    alert('로그인 후 이용가능합니다.');
+    setOnModal(true);
   };
 
   const handleModal = () => {
@@ -43,14 +38,15 @@ const Header = () => {
       <CustomButtonGroup>
         {authenticated ? (
           <>
-            {name}
-            <CustomButton onClick={handleLogout}>Logout</CustomButton>
+            <img src={profileimage} alt='' />
+            <span>{name}님</span>
+            {/* <CustomButton onClick={handleLogout}>Logout</CustomButton> */}
             <CustomButton onClick={toLiked}>My</CustomButton>
           </>
         ) : (
           <>
             <CustomButton onClick={handleModal}>Login</CustomButton>
-            <CustomButton onClick={toLiked}>My page</CustomButton>
+            <CustomButton onClick={toLiked}>My</CustomButton>
             {onModal && <LoginModal setOnModal={handleOnModalProp} />}
           </>
         )}
@@ -61,6 +57,7 @@ const Header = () => {
 
 const HeaderTheme = styled.header`
   display: flex;
+  flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
   position: fixed;
@@ -75,11 +72,9 @@ const HeaderTheme = styled.header`
   border-bottom: 1px solid #e3e2e2;
   z-index: 99;
 
-  img {
-    padding-right: 12rem;
-    width: 20rem;
+  & > a > img {
     height: 3.2rem;
-    padding-top: 11px;
+    padding: 15px;
     padding-bottom: 5px;
   }
 `;
@@ -87,13 +82,34 @@ const HeaderTheme = styled.header`
 export const CustomButton = styled.button`
   background-color: #fff;
   color: black;
-  margin-right: 0.4rem;
+  margin-right: 1rem;
+  border: none;
+  font-size: 1.1rem;
+  font-family: ${theme.font.thin};
 `;
 
 export const CustomButtonGroup = styled.div`
-  padding-top: 10px;
-  width: 12rem;
+  padding-top: 5px;
+  width: auto;
   height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: ${theme.font.thin};
+
+  span {
+    font-size: 1.1rem;
+    margin-right: 0.6rem;
+    color: black;
+  }
+
+  img {
+    border-radius: 50%;
+    padding: 0.3rem;
+    width: 2.3rem;
+    height: auto;
+    margin-right: 0.3rem;
+  }
 `;
 
 export default Header;
