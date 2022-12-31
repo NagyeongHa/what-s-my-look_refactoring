@@ -13,7 +13,7 @@ const Profile = () => {
 
   const handleLogout = async () => {
     await logout();
-    resetUserInfo();
+    await resetUserInfo();
     alert('로그아웃 되었습니다.');
     navigate('/');
   };

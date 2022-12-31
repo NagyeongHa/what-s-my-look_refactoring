@@ -51,7 +51,7 @@ const ModalWrapper = styled.div`
   flex-direction: column;
 
   & > img {
-    width: 16rem;
+    height: 60vh;
     border-radius: 0.7rem 0.7rem 0 0;
   }
 
@@ -61,7 +61,8 @@ const ModalWrapper = styled.div`
     justify-content: center;
 
     & > img {
-      height: 42rem;
+      height: 40rem;
+      width: auto;
       border-radius: 0.7rem 0 0 0.7rem;
     }
   }
@@ -72,6 +73,7 @@ const Content = styled.div`
   flex-flow: column;
   word-break: keep-all;
   margin-bottom: 1rem;
+
   img {
     width: 2rem;
     height: auto;
