@@ -21,7 +21,7 @@ const OAuthRedirect = () => {
       queryFn: () => Login(company, code, state),
     },
     {
-      queryKey: ['silentRefreshToken'],
+      queryKey: ['accessToken'],
       queryFn: () => silentRefreshToken(),
     },
   ]);
