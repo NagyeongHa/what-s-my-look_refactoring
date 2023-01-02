@@ -96,8 +96,6 @@
 
 // export default Liked;
 
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import Header from '../components/Header';
 import MyLikesList from '../components/mypage/MyLikesList';

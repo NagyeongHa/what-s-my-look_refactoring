@@ -50,10 +50,11 @@ const ModalWrapper = styled.div`
   flex-direction: column;
   width: 70vw;
   height: auto;
+  overflow-y: scroll;
 
   & > img {
     width: 100%;
-    height: 50vh;
+    height: 40vh;
     object-fit: cover;
     object-position: center;
     border-radius: 0.7rem 0.7rem 0 0;
@@ -64,6 +65,7 @@ const ModalWrapper = styled.div`
     align-items: flex-start;
     justify-content: center;
     width: auto;
+    overflow-y: auto;
 
     & > img {
       height: 40rem;

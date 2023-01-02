@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { useQueries, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { authedUserState } from '../recoil/authedUserState';
-import { Login, silentRefreshToken } from '../service/api';
-import { applyAccessToken } from '../service/apiInstance';
+import { Login } from '../service/api';
 
 const OAuthRedirect = () => {
   const location = useLocation();
