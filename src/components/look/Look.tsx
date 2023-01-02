@@ -133,7 +133,7 @@ import { weatherState } from '../../recoil/weatherState';
 import theme from '../../styles/theme';
 import { ILook } from '../../types/ILookProperty';
 import LookItem from './LookItem';
-import StyleFilter from '../StyleFilter';
+import StyleFilter from './StyleFilter';
 import { RiTShirtAirLine } from 'react-icons/ri';
 import { useQuery } from 'react-query';
 import { getLooks } from '../../service/api';

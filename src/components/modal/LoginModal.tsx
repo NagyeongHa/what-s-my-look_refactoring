@@ -11,8 +11,8 @@ const LoginModal = ({ setOnModal }: TModalProps) => {
   return (
     <ModalLayout setOnModal={setOnModal}>
       <ModalWrapper>
-        {/* <a href='http://localhost:8080/oauth/kakao'> */}
-        <a href='https://whatsmylookbackend.duckdns.org/oauth/kakao'>
+        <a href='http://localhost:8080/oauth/kakao'>
+          {/* <a href='https://whatsmylookbackend.duckdns.org/oauth/kakao'> */}
           <SnsButtonImg src={kakaoLogo} alt='KaKaoLogin' />
         </a>
         <a href='https://whatsmylookbackend.duckdns.org/oauth/google'>

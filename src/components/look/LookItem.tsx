@@ -13,7 +13,6 @@ export interface LookProp {
 const LookItem = ({ post }: LookProp) => {
   const [onModal, setOnModal] = useState(false);
   const { imagepath, content, sns_id, post_id, profileimage } = post;
-  console.log(post);
 
   const handleModal = () => {
     if (isMobile) {
