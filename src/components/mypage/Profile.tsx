@@ -16,7 +16,6 @@ const Profile = () => {
   const handleLogout = async () => {
     await logout();
     await resetUserInfo();
-    queryClient.setQueryData(['slientRefreshToken'], null);
     queryClient.removeQueries(['silentRefreshToken']);
 
     alert('로그아웃 되었습니다.');
