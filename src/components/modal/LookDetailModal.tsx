@@ -48,6 +48,7 @@ const ModalWrapper = styled.div`
   display: flex;
   font-family: ${theme.font.thin};
   flex-direction: column;
+  width: auto;
 
   & > img {
     width: 70vw;
@@ -114,6 +115,7 @@ const Content = styled.div`
     margin: 0.4rem 1rem;
     font-weight: bold;
   }
+
   @media ${theme.device.desktop} {
     width: 19rem;
 
