@@ -283,7 +283,7 @@ const Like = ({ post_id }: Pick<ILook, 'post_id'>) => {
         </Button>
       ) : (
         <Button onClick={upLikeHandler}>
-          <BsHeart size='1.3rem' />
+          <BsHeart size='1.3rem' color='black' />
         </Button>
       )}
       <span>좋아요{likes && likes.total}개</span>

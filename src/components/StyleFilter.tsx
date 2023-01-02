@@ -40,6 +40,7 @@ const ButtonWrapper = styled.div`
 const StyleButton = styled.button`
   padding: 0.3rem 0.6rem;
   margin: 0.4rem 0.4rem;
+  color: black;
   background-color: white;
   border: 1px solid gray;
   border-radius: 30px;

@@ -43,7 +43,7 @@ const ModalLayout = ({ children, setOnModal }: TModalProps) => {
       <OverLay>
         <ModalTheme ref={modalRef}>
           <button onClick={handleClose}>
-            <GoX size='1.3rem' color='white' onClick={handleClose} />
+            <GoX size='1.3rem' color='gray' onClick={handleClose} />
           </button>
           {children}
         </ModalTheme>
