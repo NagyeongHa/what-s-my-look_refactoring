@@ -15,36 +15,6 @@ const OAuthRedirect = () => {
   const state = params?.get('state');
   const setUserInfoState = useSetRecoilState(authedUserState);
 
-  // const result = useQueries([
-  //   {
-  //     queryKey: ['socialLogin'],
-  //     queryFn: () => Login(company, code, state),
-  //   },
-  //   {
-  //     queryKey: ['accessToken'],
-  //     queryFn: () => silentRefreshToken(),
-  //   },
-  // ]);
-
-  // useEffect(() => {
-  //   const isLoading = result.some((result) => result.isFetching); //false 완료
-  //   const errorInfo = result.some((result) => result.error);
-
-  //   if (errorInfo) {
-  //     return console.log('로그인 에러');
-  //   }
-
-  //   if (!isLoading) {
-  //     const userInfo = result[0].data.user;
-  //     const accessToken = result[1].data.accessToken;
-
-  //     setUserInfoState({ ...userInfo, authenticated: true });
-  //     applyAccessToken(accessToken);
-
-  //     return userInfo.sns_id && navigate('/');
-  //   }
-  // }, [navigate, result, setUserInfoState]);
-
   const { data, isLoading, error } = useQuery({
     queryKey: ['socialLogin'],
     queryFn: () => Login(company, code, state),

@@ -96,7 +96,7 @@
 
 // export default Liked;
 
-import React from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import Header from '../components/Header';
@@ -106,17 +106,16 @@ import { authedUserState } from '../recoil/authedUserState';
 
 const Liked = () => {
   const { authenticated } = useRecoilValue(authedUserState);
-  const navigate = useNavigate();
 
-  if (!authenticated) {
-    alert('로그인 후 이용가능합니다');
-    navigate('/');
-  }
   return (
     <div>
-      <Header />
-      <Profile />
-      <MyLikesList />
+      {authenticated && (
+        <>
+          <Header />
+          <Profile />
+          <MyLikesList />
+        </>
+      )}
     </div>
   );
 };

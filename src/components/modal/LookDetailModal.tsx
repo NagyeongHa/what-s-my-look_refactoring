@@ -48,10 +48,11 @@ const ModalWrapper = styled.div`
   display: flex;
   font-family: ${theme.font.thin};
   flex-direction: column;
-  width: auto;
+  width: 70vw;
+  height: auto;
 
   & > img {
-    width: 70vw;
+    width: 100%;
     height: 50vh;
     object-fit: cover;
     object-position: center;
@@ -62,6 +63,7 @@ const ModalWrapper = styled.div`
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
+    width: auto;
 
     & > img {
       height: 40rem;
