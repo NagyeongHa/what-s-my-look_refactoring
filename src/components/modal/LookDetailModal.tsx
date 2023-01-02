@@ -76,6 +76,7 @@ const Content = styled.div`
   flex-flow: column;
   word-break: keep-all;
   margin-bottom: 1rem;
+  width: auto;
 
   img {
     width: 2rem;
