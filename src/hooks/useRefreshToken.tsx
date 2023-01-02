@@ -9,7 +9,7 @@ const useRefreshToken = () => {
   // const loginSetOnModal = useSetRecoilState(LoginModalState);
   const query = useQuery(['silentRefreshToken'], () => silentRefreshToken(), {
     // refetchInterval: 60 * 60 * 2 * 1000,
-    // refetchOnMount: true,
+    refetchOnMount: true,
     onSuccess: (data) => {
       const accessToken = data.accessToken;
       const userInfo = data.userInfo;
