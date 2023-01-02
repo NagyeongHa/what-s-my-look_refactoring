@@ -50,7 +50,8 @@ const ModalWrapper = styled.div`
   flex-direction: column;
 
   & > img {
-    height: 60vh;
+    height: 50vh;
+    width: auto;
     border-radius: 0.7rem 0.7rem 0 0;
   }
 
@@ -61,7 +62,6 @@ const ModalWrapper = styled.div`
 
     & > img {
       height: 40rem;
-      width: auto;
       border-radius: 0.7rem 0 0 0.7rem;
     }
   }
