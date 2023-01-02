@@ -1,21 +1,19 @@
 import { useState } from 'react';
-import { isBrowser } from 'react-device-detect';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
-import Like from '../Like';
-import { Content, LookImg, LookProp } from '../look/LookItem';
+import { LookProp } from '../look/LookItem';
 import LookDetailModal from '../modal/LookDetailModal';
 
 const MyLikesItem = ({ post }: LookProp) => {
   const [onModal, setOnModal] = useState(false);
   const {
-    profileimage,
+    // profileimage,
     imagepath,
     post_id,
-    sns_id,
+    // sns_id,
     style,
     temperature,
-    content,
+    // content,
   } = post;
 
   const handleModal = () => {
@@ -32,27 +30,6 @@ const MyLikesItem = ({ post }: LookProp) => {
       <ImgInfo>
         {temperature}℃ / {style}
       </ImgInfo>
-
-      {/* {isBrowser ? (
-        <>
-          <Img src={imagepath} />
-          <ImgInfo>
-            {temperature}℃ / {style}
-          </ImgInfo>
-        </>
-      ) : (
-        <>
-          <LookImg src={imagepath} alt='' />
-          <Like post_id={post_id} />
-          <Content>
-            <span>
-              <img src={profileimage} alt='' />
-            </span>
-            <span>{sns_id}</span>
-            {content}
-          </Content>
-        </>
-      )} */}
 
       {onModal && (
         <LookDetailModal setOnModal={handleOnModalProp} post_id={post_id} />

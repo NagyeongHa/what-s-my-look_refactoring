@@ -6,7 +6,6 @@ import Like from '../Like';
 import ModalLayout from './ModalLayout';
 import { useQuery } from 'react-query';
 import { getLookDetail } from '../../service/api';
-import { isBrowser } from 'react-device-detect';
 
 interface LookDetailModalProp extends TModalProps {
   post_id: number;

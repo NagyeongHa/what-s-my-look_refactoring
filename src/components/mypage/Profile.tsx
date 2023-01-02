@@ -5,15 +5,19 @@ import { authedUserState } from '../../recoil/authedUserState';
 import { logout } from '../../service/api';
 import theme from '../../styles/theme';
 import { AiFillCaretRight } from 'react-icons/ai';
+import { QueryClient } from 'react-query';
 
 const Profile = () => {
   const { name, profileimage } = useRecoilValue(authedUserState);
   const resetUserInfo = useResetRecoilState(authedUserState);
   const navigate = useNavigate();
+  const queryClient = new QueryClient();
 
   const handleLogout = async () => {
     await logout();
     await resetUserInfo();
+    queryClient.removeQueries(['silentRefreshToken']);
+
     alert('로그아웃 되었습니다.');
     navigate('/');
   };

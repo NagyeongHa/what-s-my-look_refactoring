@@ -1,14 +1,12 @@
-import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { authedUserState } from '../recoil/authedUserState';
-import { LoginModalState } from '../recoil/LoginModalState';
 import { silentRefreshToken } from '../service/api';
 import { applyAccessToken } from '../service/apiInstance';
 
 const useRefreshToken = () => {
-  const [userInfo, setUserInfo] = useRecoilState(authedUserState);
-  const loginSetOnModal = useSetRecoilState(LoginModalState);
+  const setUserInfo = useSetRecoilState(authedUserState);
+  // const loginSetOnModal = useSetRecoilState(LoginModalState);
   const query = useQuery(['silentRefreshToken'], () => silentRefreshToken(), {
     // refetchInterval: 60 * 60 * 2 * 1000,
     // refetchOnMount: true,
