@@ -8,7 +8,7 @@
 
 ☀️ 날씨와 기온에 맞게 룩을 추천해드립니다.
 
-[기온별 옷 추천받기](https://what-s-my-look-refactoring.vercel.app/)
+[기온별 옷 추천받기](https://web-what-s-my-look-3vw25lciqujim.gksl2.cloudtype.app/)
 
 <br>
 <hr>
