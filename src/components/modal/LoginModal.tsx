@@ -12,13 +12,13 @@ const LoginModal = ({ setOnModal }: TModalProps) => {
     <ModalLayout setOnModal={setOnModal}>
       <ModalWrapper>
         {/* <a href='http://localhost:8080/oauth/kakao'> */}
-        <a href='https://whatsmylookbackend.duckdns.org/oauth/kakao'>
+        <a href='https://port-0-what-s-my-look-backend-3vw25lciqujim.gksl2.cloudtype.app/oauth/kakao'>
           <SnsButtonImg src={kakaoLogo} alt='KaKaoLogin' />
         </a>
-        <a href='https://whatsmylookbackend.duckdns.org/oauth/google'>
+        <a href='https://port-0-what-s-my-look-backend-3vw25lciqujim.gksl2.cloudtype.app/oauth/google'>
           <SnsButtonImg src={googleLogo} alt='googleLogin' />
         </a>
-        <a href='https://whatsmylookbackend.duckdns.org/oauth/naver'>
+        <a href='https://port-0-what-s-my-look-backend-3vw25lciqujim.gksl2.cloudtype.app/oauth/naver'>
           <SnsButtonImg src={naverLogo} alt='NaverLogin' />
         </a>
       </ModalWrapper>
