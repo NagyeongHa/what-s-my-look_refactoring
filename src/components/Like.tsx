@@ -16,7 +16,6 @@ const Like = ({ post_id }: Pick<ILook, 'post_id'>) => {
   const { data: likes } = useQuery<ILike>({
     queryKey: ['getUserAlreadyLiked', post_id, sns_id],
     queryFn: () => getUserAlreadyLiked(post_id, sns_id),
-    enabled: !!sns_id,
   });
 
   const upLikeMutation = useMutation({

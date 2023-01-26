@@ -47,7 +47,9 @@ export const getUserAlreadyLiked = async (
   post_id: number,
   sns_id: string | number
 ) => {
-  const { data } = await defaultApi.get(`/like/check/${post_id}/${sns_id}`);
+  const { data } = await defaultApi.get(
+    `/like/check?post_id=${post_id}&sns_id=${sns_id}`
+  );
   return data;
 };
 
