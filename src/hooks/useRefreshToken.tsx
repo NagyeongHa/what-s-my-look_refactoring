@@ -11,8 +11,6 @@ const useRefreshToken = () => {
     // refetchInterval: 60 * 60 * 2 * 1000,
     refetchOnMount: true,
     onSuccess: (data) => {
-      console.log('data', data);
-
       const accessToken = data.accessToken;
       const userInfo = data.userInfo;
       setUserInfo({ ...userInfo, authenticated: true });
