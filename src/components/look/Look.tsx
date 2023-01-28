@@ -28,7 +28,7 @@ const Look = () => {
   return (
     <>
       <StyleFilter selectStyleHandler={selectStyle} />
-      {data?.length ? (
+      {data ? (
         <LookContainer>
           {data.map((item) => (
             <LookCard key={item.post_id}>
