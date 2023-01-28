@@ -23,6 +23,7 @@ const Look = () => {
   const selectStyle = (styleState: string) => {
     setStyle(styleState);
   };
+  console.log(data);
 
   return (
     <>
