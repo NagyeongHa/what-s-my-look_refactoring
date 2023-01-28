@@ -1,14 +1,12 @@
 import { useQuery } from 'react-query';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { authedUserState } from '../recoil/authedUserState';
 import { silentRefreshToken } from '../service/api';
 import { applyAccessToken } from '../service/apiInstance';
 
 const useRefreshToken = () => {
   const [userInfo, setUserInfo] = useRecoilState(authedUserState);
-  // const loginSetOnModal = useSetRecoilState(LoginModalState);
   const query = useQuery(['silentRefreshToken'], () => silentRefreshToken(), {
-    // refetchInterval: 60 * 60 * 2 * 1000,
     refetchOnMount: true,
     enabled: userInfo.authenticated,
     onSuccess: (data) => {
