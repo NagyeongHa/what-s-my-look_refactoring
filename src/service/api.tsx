@@ -1,7 +1,7 @@
 import { authApi, defaultApi } from './apiInstance';
 
 export const getLooks = async (temperature: number, style: string) => {
-  if (temperature < 2) {
+  if (temperature < 0) {
     return (temperature = 2);
   }
 
