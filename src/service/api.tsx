@@ -4,8 +4,6 @@ export const getLooks = async (temperature: number, style: string) => {
   const { data } = await defaultApi.get(
     `/post/image?temperature=${temperature}&style=${style}`
   );
-  console.log('data', data);
-
   return data;
 };
 
