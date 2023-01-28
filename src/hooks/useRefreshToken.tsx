@@ -8,7 +8,7 @@ const useRefreshToken = () => {
   const [userInfo, setUserInfo] = useRecoilState(authedUserState);
   const query = useQuery(['silentRefreshToken'], () => silentRefreshToken(), {
     refetchOnMount: true,
-    enabled: userInfo.authenticated,
+    enabled: !!userInfo.authenticated,
     onSuccess: (data) => {
       const accessToken = data.accessToken;
       const userInfo = data.userInfo;
