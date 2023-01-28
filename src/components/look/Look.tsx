@@ -14,6 +14,7 @@ const Look = () => {
   const [style, setStyle] = useState('');
   const defaultTemperature = useRecoilValue(weatherState);
   const temperature = Math.round(defaultTemperature.temp);
+  console.log(temperature);
 
   const { data } = useQuery<ILook[]>({
     queryKey: ['getLooks', temperature, style],

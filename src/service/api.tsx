@@ -1,14 +1,6 @@
 import { authApi, defaultApi } from './apiInstance';
 
 export const getLooks = async (temperature: number, style: string) => {
-  if (temperature < 0) {
-    return (temperature = 2);
-  }
-
-  if (temperature > 27) {
-    return (temperature = 27);
-  }
-
   const { data } = await defaultApi.get(
     `/post/image?temperature=${temperature}&style=${style}`
   );
